@@ -1,0 +1,15 @@
+<?php defined( 'ABSPATH' ) || exit; ?>
+</main>
+<footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="<?php echo esc_url(home_url('/')); ?>">GA·MI·LEA</a><p><?php echo esc_html(gamilea_footer_option('tagline', 'Buenas cosas, más cerca de ti.')); ?></p><div class="social-icons"><?php
+$social = get_field('social', 'option') ?: array();
+foreach (array('facebook'=>'Facebook','instagram'=>'Instagram','tiktok'=>'TikTok','youtube'=>'YouTube') as $key => $label) {
+    $url = $social[$key] ?? '';
+    $icon = gamilea_image('img' . $label . '.svg', '', $label);
+    echo $url ? '<a href="' . esc_url($url) . '" target="_blank" rel="noopener noreferrer">' . $icon . '</a>' : $icon;
+}
+?></div></div>
+<?php foreach ((get_field('columns', 'option') ?: array()) as $column) : if (!is_array($column)) { continue; } ?><div class="footer-links"><h3><?php echo esc_html($column['title'] ?? ''); ?></h3><?php foreach (($column['links'] ?? array()) as $link) : if (!is_array($link) || empty($link['url'])) { continue; } ?><a href="<?php echo esc_url($link['url']); ?>"><?php echo esc_html($link['label'] ?? ''); ?></a><?php endforeach; ?></div><?php endforeach; ?>
+<div class="footer-payments"><h3>Medios de pago</h3><div class="payment-methods"><?php foreach ((get_field('payment_methods', 'option') ?: gamilea_default_payment_methods()) as $method) : if (!is_array($method)) { continue; } $method = wp_parse_args($method, array('name'=>'','logo'=>'')); ?><span class="payment-logo"><?php if ($method['logo']) : ?><img src="<?php echo esc_url($method['logo']); ?>" alt="<?php echo esc_attr($method['name']); ?>" loading="lazy"><?php else : ?><span class="payment-logo-placeholder"><?php echo esc_html($method['name']); ?></span><?php endif; ?></span><?php endforeach; ?></div><div class="secure-payment"><?php echo gamilea_image('imgLock.svg'); ?><div>Compra 100% segura<small>Tus datos estarán protegidos</small></div></div><?php $payment_note = gamilea_footer_option('payment_note'); if ($payment_note) : ?><small class="payment-demo"><?php echo esc_html($payment_note); ?></small><?php endif; ?></div></div><div class="footer-bottom"><span>© <?php echo esc_html(wp_date('Y')); ?> <?php echo esc_html(gamilea_footer_option('rights', 'GA·MI·LEA. Todos los derechos reservados.')); ?></span><span><?php echo wp_kses(str_replace('♥', '<span class="red-heart">♥</span>', gamilea_footer_option('bottom_tagline', 'Hecho con ♥ para tu día a día.')), array('span'=>array('class'=>array()))); ?></span></div></div></footer>
+<dialog id="favorites-dialog" class="favorites-dialog"><div class="dialog-heading"><h2>Tus favoritos</h2><button class="icon-button close-favorites" aria-label="Cerrar favoritos"><?php echo tienda_icon('close'); ?></button></div><div id="favorites-content"></div><p class="favorites-caption">Guardados en este navegador para tu próxima visita.</p></dialog>
+<div id="shop-status" class="shop-status" role="status" aria-live="polite"></div>
+<?php wp_footer(); ?></body></html>
