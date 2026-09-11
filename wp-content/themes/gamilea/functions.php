@@ -123,3 +123,4 @@ function gamilea_product_title($product) {
 
 require_once get_template_directory() . '/inc/blocks.php';
 require_once get_template_directory() . '/inc/options.php';
+require_once get_template_directory() . '/inc/recovery.php';
