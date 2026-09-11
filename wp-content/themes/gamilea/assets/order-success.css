@@ -1,0 +1,100 @@
+/* Figma: Order Success / Desktop (187:2234). */
+.woocommerce-order-received .topbar { display: none; }
+.woocommerce-order-received .site-main { max-width: 1440px; padding-block: 40px 64px; }
+.woocommerce-order-received .entry:has(.gamilea-order-success) > h1 { display: none; }
+.gamilea-order-success { --order-sage: #d6eee7; display: flex; flex-direction: column; gap: 24px; }
+.gamilea-order-success h1, .gamilea-order-success h2, .gamilea-order-success p, .gamilea-order-success dl, .gamilea-order-success dd { margin: 0; }
+.gamilea-order-success h2 { font-size: 20px; line-height: 26px; letter-spacing: 0; }
+.order-success-banner, .order-success-columns { display: grid; grid-template-columns: minmax(0, 836fr) minmax(0, 484fr); gap: 24px; align-items: start; }
+.order-success-banner { align-items: center; }
+.order-success-intro { display: flex; align-items: center; gap: 24px; }
+.gamilea-order-success h1 { font-size: 36px; line-height: 46px; margin: 0 0 8px; }
+.order-success-intro p { color: var(--muted); font-size: 16px; line-height: 22px; }
+.order-icon { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; border-radius: 50%; background: var(--order-sage); }
+.order-icon img { display: block; width: 20px; height: 20px; }
+.order-icon-success { width: 80px; height: 80px; }
+.order-icon-success img { width: 36px; height: 36px; }
+.order-icon-box { width: 56px; height: 56px; }
+.order-icon-box img { width: 24px; height: 24px; }
+.order-number-card { display: flex; align-items: center; gap: 20px; padding: 24px; border: 1px solid #d2ebd9; border-radius: var(--radius); background: var(--order-sage); }
+.order-number-card > div { flex: 1; min-width: 0; }
+.order-number-card span:not(.order-icon) { font-size: 14px; color: var(--muted); }
+.order-number-card strong { display: block; font-size: 28px; line-height: 36px; margin: 4px 0; }
+.order-number-card small { display: block; font-size: 12px; line-height: 16px; color: var(--muted); }
+.woocommerce .order-number-card a.button { flex-shrink: 0; font-size: 13px; min-height: 40px; padding: 10px 16px; }
+.order-metadata { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+.order-metadata > div { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.order-metadata > div > div { min-width: 0; }
+.order-metadata dt, .order-metadata small { font-size: 12px; color: var(--muted); font-weight: 400; }
+.order-metadata dd { font-size: 15px; font-weight: 700; overflow-wrap: anywhere; }
+.order-metadata dd.order-meta-total { font-size: 20px; }
+.order-metadata small { display: block; margin-top: 2px; }
+.order-success-main, .order-success-aside { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.order-panel { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; min-width: 0; }
+.order-panel > h2 { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.woocommerce .order-products { width: 100%; border-collapse: collapse; border: 0; margin: 0; font-size: 15px; }
+.woocommerce .order-products th { font-size: 13px; font-weight: 700; color: var(--muted); text-align: left; padding: 0 0 20px; }
+.woocommerce .order-products td { padding: 20px 0; border-block: 1px solid var(--line); }
+.woocommerce .order-products :is(th, td):nth-child(2) { width: 100px; text-align: center; }
+.woocommerce .order-products :is(th, td):last-child { width: 120px; text-align: right; }
+.woocommerce .order-products td:last-child { font-weight: 700; }
+.order-product-info { display: flex; align-items: center; gap: 16px; overflow-wrap: anywhere; }
+.order-product-info img { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+.order-product-info .wc-item-meta { padding: 0; list-style: none; font-size: 12px; color: var(--muted); }
+.order-totals { padding-top: 20px; display: grid; gap: 16px; font-size: 15px; }
+.order-totals > div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.order-totals dt { color: var(--muted); }
+.order-totals dd { text-align: right; }
+.order-totals .order-grand-total { padding: 12px 16px; background: var(--order-sage); border-radius: 8px; font-weight: 700; color: var(--green); }
+.order-grand-total dt { color: inherit; }
+.order-grand-total dd { font-size: 20px; }
+.order-addresses { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.order-address-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.order-address-heading h2 { display: flex; align-items: center; gap: 8px; font-size: 16px; line-height: 22px; }
+.order-address-heading a { font-size: 12px; color: var(--green); }
+.order-address .order-icon img { width: 16px; height: 16px; }
+.order-address address { font-size: 14px; line-height: 22px; font-style: normal; color: var(--muted); overflow-wrap: anywhere; }
+.order-appreciation { padding: 32px; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; }
+.order-icon-gift { width: 120px; height: 120px; }
+.order-icon-gift img { width: 64px; height: 64px; }
+.order-appreciation p { font-size: 14px; line-height: 20px; color: var(--muted); margin-top: 8px; }
+.woocommerce .gamilea-order-success a.order-button-outline { background: white; border: 1px solid var(--line); color: var(--green); }
+.woocommerce .order-appreciation a.button { width: 100%; min-height: 48px; font-size: 16px; }
+.woocommerce .gamilea-order-success a.button:hover { background: var(--green); color: white; }
+.order-support { display: flex; align-items: center; gap: 16px; }
+.order-support > div { flex: 1; }
+.order-support h2 { font-size: 16px; line-height: 22px; }
+.order-support p { font-size: 14px; color: var(--muted); }
+.woocommerce .order-support a.button { padding: 10px 16px; min-height: 40px; font-size: 14px; color: var(--ink); }
+.order-integration-notices:empty { display: none; }
+.order-customer-note { padding-top: 20px; font-size: 14px; }
+@media (max-width: 1100px) {
+    .order-success-banner, .order-success-columns { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+    .order-number-card { flex-wrap: wrap; gap: 12px; }
+    .order-metadata { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .order-addresses { grid-template-columns: 1fr; }
+    .order-support { flex-wrap: wrap; }
+    .gamilea-order-success h1 { font-size: 30px; line-height: 38px; }
+}
+@media (max-width: 700px) {
+    .woocommerce-order-received .site-main { width: calc(100% - 32px); padding-block: 24px 40px; }
+    .order-success-banner, .order-success-columns { grid-template-columns: 1fr; }
+    .order-success-intro { gap: 16px; align-items: flex-start; }
+    .order-icon-success { width: 56px; height: 56px; }
+    .order-icon-success img { width: 28px; height: 28px; }
+    .gamilea-order-success h1 { font-size: 26px; line-height: 34px; }
+    .order-success-intro p { font-size: 14px; line-height: 20px; }
+    .order-number-card, .order-panel, .order-metadata { padding: 20px; }
+    .order-number-card { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px 16px; }
+    .order-number-card .order-icon-box { width: 40px; height: 40px; }
+    .woocommerce .order-number-card a.button { grid-column: 2; justify-self: start; }
+    .order-metadata { gap: 20px; grid-template-columns: 1fr; }
+    .order-panel > h2 { font-size: 18px; }
+    .woocommerce .order-products { font-size: 13px; }
+    .woocommerce .order-products :is(th, td):nth-child(2) { width: 64px; }
+    .woocommerce .order-products :is(th, td):last-child { width: 72px; }
+    .order-product-info { gap: 8px; }
+    .order-product-info img { width: 40px; height: 40px; }
+    .order-appreciation { padding: 24px; }
+    .order-support { gap: 12px; }
+}

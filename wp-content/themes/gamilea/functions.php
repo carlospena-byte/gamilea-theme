@@ -60,6 +60,30 @@ function tienda_categories() {
         'bebe' => array( 'Artículos para Bebé', 'Todo para sus primeros momentos', 'stroller' ),
     );
 }
+
+/** "Drop" only tags dropshipping-sourced products internally; it must never be shown as a browsable category anywhere. */
+function gamilea_hidden_category_id() {
+    static $id = null;
+    if (null === $id) {
+        /**
+         * Not get_term_by(): in this WP version it's implemented on top of get_terms(),
+         * which would re-enter the get_terms_args filter below and exhaust memory.
+         */
+        global $wpdb;
+        $id = (int) $wpdb->get_var( $wpdb->prepare(
+            "SELECT t.term_id FROM {$wpdb->terms} t INNER JOIN {$wpdb->term_taxonomy} tt ON tt.term_id = t.term_id WHERE tt.taxonomy = 'product_cat' AND (t.slug = %s OR t.name = %s) LIMIT 1",
+            'drop', 'Drop'
+        ) );
+    }
+    return $id;
+}
+add_filter( 'get_terms_args', function ( $args, $taxonomies ) {
+    if ( is_admin() || ! in_array( 'product_cat', (array) $taxonomies, true ) ) { return $args; }
+    $hidden_id = gamilea_hidden_category_id();
+    if ( $hidden_id ) { $args['exclude'] = array_unique( array_merge( (array) ( $args['exclude'] ?? array() ), array( $hidden_id ) ) ); }
+    return $args;
+}, 10, 2 );
+
 add_action( 'wp_enqueue_scripts', function () {
     wp_enqueue_script( 'tienda-home', get_template_directory_uri() . '/assets/home.js', array(), (string) filemtime( get_template_directory() . '/assets/home.js' ), true );
     if ( class_exists( 'WooCommerce' ) ) {
@@ -124,3 +148,5 @@ function gamilea_product_title($product) {
 require_once get_template_directory() . '/inc/blocks.php';
 require_once get_template_directory() . '/inc/options.php';
 require_once get_template_directory() . '/inc/recovery.php';
+require_once get_template_directory() . '/inc/checkout-locations.php';
+require_once get_template_directory() . '/inc/order-success.php';

@@ -1,0 +1,201 @@
+/* Shipping and payment options only ever have one choice on this store, so instead of a plain
+   radio row they're styled as a "confirmed" trust card: icon plus a highlighted selected state
+   (WooCommerce's own "highlight checked" indicator already supplies the checkmark). The native
+   radio stays in the DOM (focusable, announced by screen readers) but is visually hidden. */
+.wc-block-checkout__shipping-option .wc-block-components-radio-control__input,
+.wc-block-checkout__payment-method .wc-block-components-radio-control__input {
+	opacity: 0;
+	width: 1px;
+	height: 1px;
+}
+
+.wc-block-checkout__shipping-option .wc-block-components-radio-control__option {
+	position: relative;
+	padding: 16px 44px 16px 60px;
+	border-radius: 12px;
+	transition: border-color .2s, box-shadow .2s;
+}
+/* Payment methods render their description ("Paga en efectivo...") as a sibling
+   accordion-content element *outside* the <label>, so the card's background/shadow/radius
+   have to live on the shared wrapper (radio-control-accordion-option) — putting them on the
+   label alone left the description hanging below the card with no background of its own. */
+.wc-block-checkout__payment-method .wc-block-components-radio-control-accordion-option {
+	border-radius: 12px;
+	overflow: hidden;
+	transition: border-color .2s, box-shadow .2s;
+}
+.wc-block-checkout__payment-method .wc-block-components-radio-control__option {
+	position: relative;
+	padding: 16px 44px 16px 60px;
+	background: transparent !important;
+	box-shadow: none !important;
+}
+/* checkout-trust.js moves each method's description into the label-group, right after the
+   title, so it stacks under it instead of sharing a row with the trust badge. */
+.wc-block-checkout__payment-method .wc-block-components-radio-control__label-group {
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 2px;
+}
+.wc-block-checkout__shipping-option .wc-block-components-radio-control__option::before,
+.wc-block-checkout__payment-method .wc-block-components-radio-control__option::before {
+	content: '';
+	position: absolute;
+	left: 14px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background-color: #e7f2ee;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 16px 16px;
+}
+.wc-block-checkout__shipping-option .wc-block-components-radio-control__option::before {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2317654f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 5h11v12H3zM14 9h4l3 4v4h-7'/%3E%3Ccircle cx='7' cy='18' r='2'/%3E%3Ccircle cx='18' cy='18' r='2'/%3E%3C/svg%3E");
+}
+.wc-block-checkout__payment-method .wc-block-components-radio-control__option::before {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2317654f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3 3 7v5c0 5 9 9 9 9s9-4 9-9V7z'/%3E%3Cpath d='m8 12 3 3 5-6'/%3E%3C/svg%3E");
+}
+
+.wc-block-checkout__shipping-option .wc-block-components-radio-control__option-checked {
+	background: #f3faf7;
+	border-color: #17654f !important;
+	box-shadow: 0 2px 12px rgba(23, 101, 79, .12);
+}
+.wc-block-checkout__payment-method .wc-block-components-radio-control-accordion-option--checked-option-highlighted {
+	background: #f3faf7;
+	box-shadow: 0 2px 12px rgba(23, 101, 79, .12);
+}
+.wc-block-checkout__shipping-option .wc-block-components-radio-control__label,
+.wc-block-checkout__payment-method .wc-block-components-radio-control__label,
+.wc-block-components-payment-method-label {
+	font-weight: 600;
+	font-size: 15px;
+}
+.wc-block-checkout__shipping-option--free {
+	display: inline-flex;
+	align-items: center;
+	background: #17654f;
+	color: #fff;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: .4px;
+	text-transform: uppercase;
+	padding: 3px 10px;
+	border-radius: 20px;
+	margin-top: 4px;
+}
+.wc-block-checkout__payment-method .wc-block-components-radio-control-accordion-content {
+	padding: 0 !important;
+	margin-top: 0;
+	font-size: 13px;
+	color: #65676b;
+}
+
+/* When the cart has a Drop Connector product, Drop injects its own Departamento/Municipio/
+   reference fields as a sibling block that WooCommerce flattens (display:contents) into the
+   same flex-wrap row-flow as the core address fields. That pulls the "Usar la misma dirección
+   para facturación" checkbox to the front of that flow, where it shares a row with Nombre
+   (first_name) and pushes Apellidos (last_name) onto its own row instead of pairing them.
+   Forcing the checkbox to always claim a full row keeps Nombre/Apellidos paired regardless. */
+.wc-block-checkout__shipping-fields .wc-block-checkout__use-address-for-billing {
+	flex: 1 0 100% !important;
+}
+
+/* Ciudad/Municipio is disabled (assets/checkout-locations.js) until a Departamento is chosen,
+   but WooCommerce's select styling doesn't visually react to the native `disabled` attribute on
+   its own — border, background and text stay identical to an enabled select. Make it obvious. */
+.wc-blocks-components-select:has(.wc-blocks-components-select__select:disabled) {
+	cursor: not-allowed;
+}
+.wc-blocks-components-select .wc-blocks-components-select__select:disabled {
+	background: #f5f5f4;
+	border-color: #e0e0dd;
+	color: #9a9d9c;
+	cursor: not-allowed;
+}
+.wc-blocks-components-select:has(.wc-blocks-components-select__select:disabled) .wc-blocks-components-select__label,
+.wc-blocks-components-select:has(.wc-blocks-components-select__select:disabled) .wc-blocks-components-select__expand {
+	color: #9a9d9c;
+	fill: #9a9d9c;
+}
+
+/* Section headers (added by assets/checkout-trust.js): icon + title/subtitle. */
+.wc-block-checkout__shipping-option .wc-block-components-checkout-step__heading,
+.wc-block-checkout__payment-method .wc-block-components-checkout-step__heading {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+.gamilea-step-icon {
+	flex-shrink: 0;
+	display: block;
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	background-color: #e7f2ee;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 26px 26px;
+}
+.gamilea-step-icon--truck {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2317654f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 5h11v12H3zM14 9h4l3 4v4h-7'/%3E%3Ccircle cx='7' cy='18' r='2'/%3E%3Ccircle cx='18' cy='18' r='2'/%3E%3C/svg%3E");
+}
+.gamilea-step-icon--card {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2317654f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='4' width='20' height='16' rx='2'/%3E%3Cpath d='M2 9h20M6 15h5'/%3E%3C/svg%3E");
+}
+.gamilea-step-text {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+.gamilea-step-subtitle {
+	margin: 0;
+	font-size: 13px;
+	font-weight: 400;
+	color: #65676b;
+}
+
+/* Payment trust reassurance (added by assets/checkout-trust.js), mirroring the shipping "Gratis" pill. */
+.gamilea-trust-badge {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding-left: 16px;
+	flex-shrink: 0;
+}
+.gamilea-trust-badge__icon {
+	width: 18px;
+	height: 18px;
+	flex-shrink: 0;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2317654f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='10' width='14' height='12' rx='2'/%3E%3Cpath d='M8 10V6a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E");
+}
+.gamilea-trust-badge__text {
+	display: flex;
+	flex-direction: column;
+	text-align: right;
+	line-height: 1.3;
+}
+.gamilea-trust-badge__text strong {
+	font-size: 13px;
+	font-weight: 600;
+	color: #081820;
+}
+.gamilea-trust-badge__text small {
+	font-size: 11px;
+	color: #65676b;
+}
+
+/* "Realizar el pedido" isn't a `.button`/`.woocommerce` element, so it misses the theme's
+   generic button hover rule and falls back to no hover feedback at all — give it the same
+   green used for the checkout option cards (border/icon/"Gratis" badge) above. */
+.wc-block-components-checkout-place-order-button:hover {
+	background-color: #17654f;
+	color: #fff;
+}
