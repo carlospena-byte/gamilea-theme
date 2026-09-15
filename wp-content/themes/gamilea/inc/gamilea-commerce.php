@@ -1,8 +1,8 @@
 <?php
 /** Presentation hooks; WooCommerce owns catalog, checkout and account behavior. */
 defined('ABSPATH') || exit;
-add_filter('loop_shop_columns', function() { return 5; });
-add_filter('loop_shop_per_page', function() { return 10; });
+add_filter('loop_shop_columns', function() { return 4; });
+add_filter('loop_shop_per_page', function() { return 12; });
 add_filter('woocommerce_page_title', function($title) { if (is_search()) { return 'Resultados para: ' . get_search_query(false); } $slug = get_query_var('product_cat'); if ($slug) { $term = get_term_by('slug', $slug, 'product_cat'); if ($term && !is_wp_error($term)) { return $term->name; } } return is_shop() ? 'Todos los productos' : $title; });
 add_action('woocommerce_before_shop_loop', function() {
     echo '<form class="gamilea-category-filter" method="get" action="' . esc_url(wc_get_page_permalink('shop')) . '"><label for="gamilea-category">Categoría</label><select id="gamilea-category" name="product_cat"><option value="">Todas las categorías</option>';
@@ -37,3 +37,32 @@ add_filter('woocommerce_get_catalog_ordering_args', function($args,$orderby) {
 remove_action('woocommerce_single_product_summary','woocommerce_template_single_title',5);
 add_action('woocommerce_single_product_summary',function(){ global $product; echo '<h1 class="product_title entry-title">' . gamilea_product_title($product) . '</h1>'; },5);
 add_filter('document_title_parts',function($parts){ $parts['site']='GA·MI·LEA'; if(is_front_page()){ $parts['title']='GA·MI·LEA'; } return $parts; });
+
+/** Use the FAQ page's full-width shell and inset content throughout commerce. */
+function gamilea_is_commerce_page() {
+    return function_exists('is_woocommerce') && (is_woocommerce() || is_cart() || is_checkout() || is_account_page());
+}
+add_action('wp_enqueue_scripts', function () {
+    if (!gamilea_is_commerce_page()) { return; }
+    wp_enqueue_style('gamilea-commerce-layout', get_template_directory_uri() . '/assets/commerce-layout.css', array('gamilea-design'), (string) filemtime(get_template_directory() . '/assets/commerce-layout.css'));
+}, 30);
+
+/** Shared content width and enhanced catalog filters. */
+add_filter('body_class', function ($classes) {
+    if (is_shop() || is_product_taxonomy()) { $classes[] = 'gamilea-shop-page'; }
+    if (gamilea_is_commerce_page()) { $classes[] = 'gamilea-commerce-page'; }
+    return $classes;
+});
+add_action('wp_enqueue_scripts', function () {
+    if (!is_shop() && !is_product_taxonomy()) { return; }
+    wp_enqueue_style('gamilea-shop', get_template_directory_uri() . '/assets/shop.css', array('gamilea-design'), (string) filemtime(get_template_directory() . '/assets/shop.css'));
+    wp_enqueue_script('gamilea-shop', get_template_directory_uri() . '/assets/shop.js', array('jquery'), (string) filemtime(get_template_directory() . '/assets/shop.js'), true);
+});
+
+// Group the catalog controls explicitly instead of relying on floated forms.
+add_action('woocommerce_before_shop_loop', function () {
+    if (is_shop() || is_product_taxonomy()) { echo '<div class="gamilea-shop-toolbar">'; }
+}, 14);
+add_action('woocommerce_before_shop_loop', function () {
+    if (is_shop() || is_product_taxonomy()) { echo '</div>'; }
+}, 31);

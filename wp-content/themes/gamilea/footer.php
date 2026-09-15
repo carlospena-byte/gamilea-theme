@@ -1,4 +1,5 @@
 <?php defined( 'ABSPATH' ) || exit; ?>
+<?php if (gamilea_is_commerce_page()) : ?></div><?php endif; ?>
 </main>
 <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="<?php echo esc_url(home_url('/')); ?>">GA·MI·LEA</a><p><?php echo esc_html(gamilea_footer_option('tagline', 'Buenas cosas, más cerca de ti.')); ?></p><div class="social-icons"><?php
 $social = get_field('social', 'option') ?: array();

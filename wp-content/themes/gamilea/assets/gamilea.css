@@ -102,6 +102,10 @@ body{font-variation-settings:'opsz' 14;font-size:16px}h1,h2,h3{letter-spacing:0}
 .category-grid--fit{grid-template-columns:repeat(auto-fit,246px);justify-content:center}
 .product-grid--fit{grid-template-columns:repeat(auto-fit,246px);justify-content:center}
 
+/* WooCommerce clearfix pseudo-elements become extra flex items and add edge gaps. */
+.woocommerce div.product form.cart::before,
+.woocommerce div.product form.cart::after { display: none; }
+
 /* Define the complete search field, including its submit button. */
 .site-header .header-search {
     border: 1px solid #b9c7c1;

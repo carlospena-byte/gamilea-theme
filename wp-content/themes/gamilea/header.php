@@ -17,3 +17,5 @@
 </header>
 <?php get_template_part('template-parts/mobile-menu'); ?>
 <main id="main" class="<?php echo is_front_page() ? 'home-main' : 'container site-main'; ?>">
+
+<?php if (gamilea_is_commerce_page()) : ?><div class="container"><?php endif; ?>

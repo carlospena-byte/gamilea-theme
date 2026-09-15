@@ -1,0 +1,14 @@
+/* Commerce uses the shared container width and FAQ heading typography. */
+body.gamilea-commerce-page #main.site-main{width:100%;max-width:none;margin:0;padding:0}
+.gamilea-commerce-page .site-main>.container{padding-block:80px}
+.gamilea-commerce-page .site-main h1{font-family:Marcellus,serif;font-weight:400;font-size:48px;line-height:1.25;letter-spacing:0;color:var(--ink)}
+.gamilea-shop-page .site-main>.container>.woocommerce-breadcrumb{text-align:center;margin:0 0 16px}
+.gamilea-shop-page .site-main>.container>h1,.gamilea-shop-page .woocommerce-products-header{text-align:center;margin:0 0 40px}
+.gamilea-shop-page .woocommerce-products-header h1{margin:0}
+.gamilea-shop-page .term-description{max-width:620px;margin:16px auto 40px;text-align:center;font-size:16px;line-height:24px;color:var(--muted)}
+.gamilea-commerce-page .site-main>.container>.entry>h1{text-align:center;margin-bottom:40px}
+@media(max-width:600px){
+ .gamilea-commerce-page .site-main>.container{padding-block:40px}
+ .gamilea-commerce-page .site-main h1{font-size:34px}
+ .gamilea-shop-page .site-main>.container>h1,.gamilea-shop-page .woocommerce-products-header,.gamilea-commerce-page .site-main>.container>.entry>h1{margin-bottom:24px}
+}
