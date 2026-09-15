@@ -173,6 +173,7 @@ require_once get_template_directory() . '/inc/contact.php';
 require_once get_template_directory() . '/inc/faq.php';
 require_once get_template_directory() . '/inc/about.php';
 require_once get_template_directory() . '/inc/account.php';
+require_once get_template_directory() . '/inc/cart.php';
 
 add_filter('body_class', function ($classes) {
     if (is_page_template('page-legal.php')) { $classes[] = 'gamilea-legal-page'; }

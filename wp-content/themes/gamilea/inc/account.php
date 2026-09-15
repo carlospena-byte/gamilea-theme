@@ -24,3 +24,18 @@ add_action( 'woocommerce_account_content', function () {
     $title = WC()->query->get_endpoint_title( $endpoint, isset( $wp->query_vars[ $endpoint ] ) ? $wp->query_vars[ $endpoint ] : '' );
     if ( $title ) { echo '<h2 class="gamilea-account-section-title">' . esc_html( $title ) . '</h2>'; }
 }, 5 );
+
+/**
+ * WooCommerce stores the registration privacy notice as an option, saved in English when the store
+ * is installed, so gettext never sees it. Translating it here keeps the theme self contained.
+ */
+add_filter( 'option_woocommerce_registration_privacy_policy_text', function ( $text ) {
+    if ( ! is_string( $text ) || false === strpos( $text, 'Your personal data will be used' ) ) { return $text; }
+    return __( 'Usaremos tus datos para gestionar tu cuenta, dar seguimiento a tus pedidos y mejorar tu experiencia, como se explica en nuestra [privacy_policy].', 'gamilea' );
+} );
+
+/** The notice reads as fine print, so form-login.php renders it after the button instead. */
+add_action( 'wp', function () {
+    if ( ! function_exists( 'is_account_page' ) || ! is_account_page() || is_user_logged_in() ) { return; }
+    remove_action( 'woocommerce_register_form', 'wc_registration_privacy_policy_text', 20 );
+} );

@@ -1,0 +1,426 @@
+/* Cart page. Presentation only — WooCommerce keeps ownership of the cart, its totals and the
+   Store API requests behind every quantity, coupon and removal control. */
+
+/* Heading: the cart opens the purchase flow, so it leads with the page title and a one-line
+   summary instead of the centered Marcellus title the rest of the commerce pages use. */
+.woocommerce-cart.gamilea-commerce-page .site-main > .container > .entry > h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -1.4px;
+    text-align: left;
+    margin: 0 0 8px;
+}
+.gamilea-cart-intro {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0 0 32px;
+}
+
+/* Layout: items on the left, a sticky order summary card on the right. */
+.woocommerce-cart .wp-block-woocommerce-cart { margin: 0; }
+.woocommerce-cart .wp-block-woocommerce-cart,
+.woocommerce-cart .wc-block-cart { min-height: 0 !important; }
+.woocommerce-cart .wc-block-cart.wc-block-components-sidebar-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 400px;
+    column-gap: 96px;
+    align-items: start;
+    gap: 96px;
+}
+.woocommerce-cart .wc-block-cart .wc-block-cart__main {
+    width: auto;
+    min-height: 0 !important;
+    padding: 0;
+    margin: 0;
+}
+.woocommerce-cart .wc-block-cart .wc-block-cart__sidebar {
+    width: auto;
+    margin: 0;
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    position: sticky;
+    top: 24px;
+}
+
+/* Cart items card. */
+.woocommerce-cart .wc-block-cart-items {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    border-collapse: separate;
+    padding: 0 24px;
+    margin: 0;
+}
+.woocommerce-cart .wc-block-cart-items thead { display: none; }
+.woocommerce-cart .wc-block-cart-items tr.wc-block-cart-items__row { background: none; }
+.woocommerce-cart table.wc-block-cart-items .wc-block-cart-items__row td {
+    padding: 24px 0 !important;
+    border: 0 !important;
+    vertical-align: middle;
+}
+.woocommerce-cart table.wc-block-cart-items tbody tr + tr td { border-top: 1px solid var(--line) !important; }
+
+.woocommerce-cart td.wc-block-cart-item__image {
+    width: 120px;
+    padding-right: 20px !important;
+}
+.woocommerce-cart td.wc-block-cart-item__image a { display: block; }
+.woocommerce-cart table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__image img {
+    width: 96px;
+    height: 96px;
+    max-width: none;
+    object-fit: contain;
+    background: var(--soft);
+    border-radius: 10px;
+    padding: 8px;
+}
+
+.woocommerce-cart td.wc-block-cart-item__product { padding-right: 20px !important; }
+.woocommerce-cart .wc-block-cart-item__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.woocommerce-cart .wc-block-cart-item__wrap > * { margin: 0 !important; }
+.woocommerce-cart table.wc-block-cart-items .wc-block-cart-items__row .wc-block-components-product-name {
+    font-size: 18px;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+/* Unit price and the short description read as one quiet meta line under the name — the line
+   total on the right is the number that matters here. */
+.woocommerce-cart .wc-block-cart-item__prices,
+.woocommerce-cart .wc-block-cart-item__prices .wc-block-components-product-price,
+.woocommerce-cart .wc-block-components-product-metadata {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    color: var(--muted);
+}
+.woocommerce-cart .wc-block-cart-item__prices ins {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+}
+.woocommerce-cart .wc-block-cart-item__prices del { color: var(--muted); }
+.woocommerce-cart .wc-block-components-product-metadata__description p {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Quantity stepper and removal, side by side and unboxed. */
+.woocommerce-cart .wc-block-cart-item__quantity {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 2px !important;
+}
+.woocommerce-cart .wc-block-cart-item__quantity .wc-block-components-quantity-selector {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+}
+.woocommerce-cart .wc-block-components-quantity-selector::after { display: none; }
+.woocommerce-cart .wc-block-components-quantity-selector__button {
+    width: 24px;
+    min-width: 24px;
+    height: 28px;
+    padding: 0;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 500;
+    color: var(--ink);
+    opacity: 1;
+}
+.woocommerce-cart .wc-block-components-quantity-selector__button[disabled] { color: var(--muted); }
+.woocommerce-cart .wc-block-components-quantity-selector__input {
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    color: var(--ink);
+}
+.woocommerce-cart table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__quantity .wc-block-cart-item__remove-link {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 1;
+}
+.woocommerce-cart table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__quantity .wc-block-cart-item__remove-link:hover {
+    color: #346152;
+    text-decoration: none;
+}
+/* The button ships an icon and carries its own aria-label ("Eliminar <producto> del carrito"),
+   so the visible wording is presentational. */
+.woocommerce-cart .wc-block-cart-item__remove-link svg { display: none; }
+.woocommerce-cart .wc-block-cart-item__remove-link::after { content: 'Eliminar'; }
+.woocommerce-cart .wc-block-cart-item__remove-link .screen-reader-text { position: absolute; }
+
+/* Line total. */
+.woocommerce-cart td.wc-block-cart-item__total {
+    width: 130px;
+    text-align: right;
+}
+.woocommerce-cart .wc-block-cart-item__total-price-and-sale-badge-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+.woocommerce-cart .wc-block-cart-item__total .wc-block-components-product-price {
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 700;
+    color: var(--ink);
+}
+.woocommerce-cart .wc-block-cart-item__total .wc-block-components-product-badge {
+    background: var(--soft);
+    border: 0;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--green);
+}
+
+/* Order summary card. WooCommerce styles these blocks from its own stylesheet, so the
+   overrides below match or beat its selectors rather than relying on load order. */
+.woocommerce-cart .wc-block-cart .wc-block-cart__totals-title {
+    margin: 0 0 16px;
+    padding: 0;
+    font-size: 20px !important;
+    line-height: 1.3;
+    font-weight: 700 !important;
+    text-align: left;
+    text-transform: none !important;
+    letter-spacing: 0;
+    color: var(--ink);
+}
+/* WooCommerce rules the summary into horizontal bands; clear them all and reinstate only the
+   two dividers the design keeps. */
+.woocommerce-cart .wc-block-cart__sidebar > *,
+.woocommerce-cart .wc-block-cart__sidebar > * > *,
+.woocommerce-cart .wc-block-cart__sidebar .wc-block-components-totals-wrapper,
+.woocommerce-cart .wc-block-cart__sidebar .wc-block-components-totals-item,
+.woocommerce-cart .wc-block-cart__sidebar .wc-block-cart__submit-container { border: 0 !important; }
+.woocommerce-cart .wc-block-cart__sidebar .wc-block-components-totals-wrapper { padding: 12px 0; }
+.woocommerce-cart .wc-block-cart__sidebar .wc-block-components-totals-wrapper::after { display: none; }
+.woocommerce-cart .wc-block-cart__sidebar .wc-block-components-totals-item {
+    font-size: 15px;
+    line-height: 22px;
+}
+.woocommerce-cart .wc-block-cart__sidebar .wc-block-components-totals-item__label { color: var(--muted); }
+.woocommerce-cart .wc-block-cart__sidebar .wc-block-components-totals-item__value { color: var(--ink); }
+
+/* Coupon: a quiet opener above the figures, not a boxed panel. */
+.woocommerce-cart .wc-block-cart__sidebar .wp-block-woocommerce-cart-order-summary-coupon-form-block {
+    padding: 0 0 16px !important;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--line) !important;
+}
+.woocommerce-cart .wc-block-components-totals-coupon .wc-block-components-panel__button {
+    padding: 0;
+    justify-content: flex-start;
+    gap: 2px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+}
+.woocommerce-cart .wc-block-components-totals-coupon__form { margin-top: 12px; }
+.woocommerce-cart .wc-block-components-totals-coupon__button { min-height: 44px; }
+
+/* Shipping is always included in El Salvador, so it reads as a benefit rather than a charge. */
+.woocommerce-cart .wp-block-woocommerce-cart-order-summary-shipping-block .wc-block-components-totals-item__label,
+.woocommerce-cart .wp-block-woocommerce-cart-order-summary-shipping-block .wc-block-components-totals-item__value,
+.woocommerce-cart .wp-block-woocommerce-cart-order-summary-shipping-block .wc-block-components-totals-item__value strong {
+    color: var(--green);
+    font-weight: 600;
+    text-transform: none;
+    font-variant: normal;
+}
+
+/* Total, with the tax note the price already accounts for. */
+.woocommerce-cart .wc-block-cart__sidebar .wc-block-components-totals-footer-item {
+    margin-top: 4px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line) !important;
+    font-size: 24px;
+    line-height: 1.3;
+}
+.woocommerce-cart .wc-block-components-totals-footer-item::before {
+    content: 'Impuestos incluidos en el precio';
+    display: block;
+    width: 100%;
+    margin: -6px 0 12px;
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
+    color: var(--muted);
+}
+.woocommerce-cart .wc-block-cart__sidebar .wc-block-components-totals-footer-item .wc-block-components-totals-item__label {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ink);
+}
+.woocommerce-cart .wc-block-components-totals-footer-item .wc-block-components-totals-item__value,
+.woocommerce-cart .wc-block-components-totals-footer-item-tax-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+/* Checkout call to action. */
+.woocommerce-cart .wc-block-cart__payment-options:empty { display: none; }
+.woocommerce-cart .wc-block-cart__submit {
+    margin: 20px 0 0;
+    padding: 0;
+    border: 0 !important;
+}
+.woocommerce-cart .wc-block-cart__submit-container {
+    padding: 0;
+    border: 0 !important;
+    /* The sticky variant paints its own white background inline. */
+    background: none !important;
+    box-shadow: none !important;
+}
+.woocommerce-cart .wc-block-cart__submit .wc-block-cart__submit-button,
+.woocommerce-cart .wc-block-cart__submit-container--sticky .wc-block-cart__submit-button {
+    width: 100%;
+    min-height: 53px;
+    border-radius: 8px;
+    background: var(--ink) !important;
+    color: #fff !important;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: none;
+}
+.woocommerce-cart .wc-block-cart__submit::after {
+    content: 'Compra segura · Tus datos protegidos';
+    display: block;
+    margin-top: 14px;
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--muted);
+    text-align: center;
+}
+
+/* Cross-sells, when the store has them configured. */
+.woocommerce-cart .wc-block-cart__main .wp-block-woocommerce-product-collection { margin-top: 48px; }
+.woocommerce-cart .wc-block-cart__main .wp-block-woocommerce-product-collection h2 {
+    font-size: 24px;
+    line-height: 31px;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+@media (max-width: 900px) {
+    .woocommerce-cart.gamilea-commerce-page .site-main > .container > .entry > h1 {
+        font-size: 32px;
+        letter-spacing: -1px;
+    }
+    .gamilea-cart-intro {
+        font-size: 15px;
+        margin-bottom: 24px;
+    }
+    .woocommerce-cart .wc-block-cart.wc-block-components-sidebar-layout {
+        display: block;
+    }
+    .woocommerce-cart .wc-block-cart .wc-block-cart__sidebar {
+        position: static;
+        margin-top: 24px;
+        padding: 20px;
+    }
+    .woocommerce-cart .wc-block-cart-items { padding: 0 16px; }
+    .woocommerce-cart .wc-block-cart-item__wrap { min-width: 0; }
+    .woocommerce-cart table.wc-block-cart-items .wc-block-cart-items__row .wc-block-components-product-name { overflow-wrap: anywhere; }
+    /* WooCommerce hides the summary heading once the sidebar stops being a sidebar. */
+    .woocommerce-cart .wc-block-cart .wc-block-components-sidebar .wc-block-cart__totals-title { display: block !important; }
+    .woocommerce-cart .wc-block-cart-items td { padding: 20px 0 !important; }
+    .woocommerce-cart td.wc-block-cart-item__image {
+        width: 88px;
+        padding-right: 16px !important;
+    }
+    .woocommerce-cart td.wc-block-cart-item__image img {
+        width: 72px;
+        height: 72px;
+    }
+    .woocommerce-cart .wc-block-cart-item__wrap .wc-block-components-product-name { font-size: 16px; }
+    .woocommerce-cart td.wc-block-cart-item__total { width: 92px; }
+    .woocommerce-cart .wc-block-cart-item__total .wc-block-components-product-price { font-size: 18px; }
+    .woocommerce-cart .wc-block-cart-item__quantity {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    /* WooCommerce pins the checkout button to the viewport once it scrolls out of view on
+       narrow screens. That behaviour stays; it just gets the brand's surface. */
+    .woocommerce-cart .wc-block-cart__submit-container--sticky {
+        padding: 12px 20px !important;
+        background: #fff !important;
+        border-top: 1px solid var(--line) !important;
+        box-shadow: 0 -8px 24px rgba(11, 25, 32, .08) !important;
+    }
+}
+
+/* Empty cart. WooCommerce builds this state from the page's own blocks and lays the suggestion
+   grid out itself, so it only needs the brand's typography and evenly aligned cards. */
+.woocommerce-cart .wp-block-woocommerce-empty-cart-block { padding: 8px 0 0; }
+.woocommerce-cart .wc-block-cart__empty-cart__title {
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--ink);
+    margin: 0 0 8px;
+}
+.woocommerce-cart .wp-block-woocommerce-empty-cart-block .wp-block-separator { display: none; }
+.woocommerce-cart .wp-block-woocommerce-empty-cart-block > h2:not(.wc-block-cart__empty-cart__title) {
+    font-size: 24px;
+    line-height: 31px;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin: 48px 0 24px;
+}
+.woocommerce-cart .wp-block-woocommerce-empty-cart-block .wc-block-grid__products {
+    align-items: flex-start;
+    margin: 0;
+    padding: 0;
+}
+.woocommerce-cart .wp-block-woocommerce-empty-cart-block .wc-block-grid__product-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background: var(--soft);
+    border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+    .woocommerce-cart .wp-block-woocommerce-empty-cart-block .wc-block-grid__product-image img { height: 120px; }
+}
