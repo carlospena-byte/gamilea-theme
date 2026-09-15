@@ -1,0 +1,98 @@
+/* Figma: Preguntas Frecuentes / Desktop (210:2332). */
+.gamilea-faq-page .site-main { width: 100%; max-width: none; margin: 0; padding: 0; }
+.faq-inner { width: min(1200px, calc(100% - 96px)); margin-inline: auto; }
+.faq-hero h1, .faq-hero p, .faq-cta h2, .faq-cta p, .faq-answer p { margin: 0; }
+
+/* Portada */
+.faq-hero { background: #fff; padding: 80px 0 40px; }
+.faq-hero .faq-inner { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+.faq-eyebrow { font-size: 14px; font-weight: 600; text-transform: uppercase; color: var(--muted); }
+.gamilea-faq-page .site-main h1 { font-family: Marcellus, serif; font-weight: 400; font-size: 48px; line-height: 1.25; letter-spacing: 0; color: var(--ink); }
+.faq-lede { font-size: 16px; line-height: 24px; color: var(--muted); max-width: 620px; }
+
+/* Pestañas de categoría */
+.faq-tabs { background: #fff; padding-bottom: 60px; }
+.faq-tabs-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
+.faq-tab { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 10px 24px; font-size: 14px; font-weight: 600; color: var(--ink); white-space: nowrap; transition: background .2s, color .2s, border-color .2s; }
+.faq-tab:hover { background: var(--soft); }
+.faq-tab[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+/*
+ * Retícula de dos columnas. No se usan columnas CSS a propósito: al balancearse por
+ * altura, abrir un acordeón empujaba una tarjeta de una columna a otra bajo el cursor.
+ * Con grid cada tarjeta se queda en su celda y al filtrar las visibles se recolocan en orden.
+ */
+.faq-grid { background: #fff; padding-bottom: 80px; }
+.faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 32px; align-items: start; }
+.faq-item { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; cursor: pointer; }
+/*
+ * Tarjeta abierta: borde degradado que gira en sentido horario. El borde pasa de 1px a
+ * 2px y el relleno baja de 24 a 23, así la caja mide lo mismo abierta que cerrada y la
+ * tarjeta vecina de la fila no se desplaza al abrir.
+ */
+@property --faq-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+.faq-item[open] {
+    --faq-angle: 0deg;
+    border: 2px solid transparent;
+    padding: 23px;
+    background: linear-gradient(#fff, #fff) padding-box,
+                conic-gradient(from var(--faq-angle), var(--ink), var(--green), #7fc9b3, var(--green), var(--ink)) border-box;
+    box-shadow: 0 6px 22px rgba(23, 101, 79, .10);
+    animation: faq-border-spin 4s linear infinite;
+}
+@keyframes faq-border-spin { to { --faq-angle: 360deg; } }
+
+/*
+ * Apertura y cierre suaves. ::details-content permite animar el propio contenido del
+ * <details>, incluido el cierre, que de otro modo el navegador corta en seco; e
+ * interpolate-size es lo que hace interpolable la altura hasta auto. Donde no haya
+ * soporte, la tarjeta abre y cierra de golpe, que es el comportamiento nativo.
+ */
+.faq-list { interpolate-size: allow-keywords; }
+.faq-item::details-content {
+    block-size: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: block-size .32s ease, opacity .28s ease, content-visibility .32s allow-discrete;
+}
+.faq-item[open]::details-content { block-size: auto; opacity: 1; }
+/* Sin @property el ángulo no anima: queda el mismo borde degradado, pero quieto. */
+@media (prefers-reduced-motion: reduce) {
+    .faq-item[open] { animation: none; }
+    .faq-item::details-content { transition: none; }
+}
+.faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; list-style: none; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::marker { content: ''; }
+.faq-question { font-size: 16px; font-weight: 600; line-height: 21px; color: var(--ink); }
+.faq-glyph { flex: 0 0 auto; font-size: 18px; line-height: 1; color: var(--muted); }
+.faq-glyph::before { content: '+'; }
+.faq-item[open] .faq-glyph::before { content: '−'; }
+.faq-answer { margin-top: 12px; font-size: 14px; line-height: 22px; color: var(--muted); }
+.faq-answer p + p { margin-top: 10px; }
+.faq-answer a { text-decoration: underline; }
+.faq-empty { font-size: 14px; color: var(--muted); margin: 0; }
+
+/* CTA de cierre */
+.faq-cta-section { background: #fff; padding-bottom: 80px; }
+.faq-cta { background: var(--soft); border-radius: var(--radius); padding: 60px 120px; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; }
+.faq-cta h2 { font-family: Marcellus, serif; font-weight: 400; font-size: 28px; line-height: 1.3; letter-spacing: 0; color: var(--ink); }
+.faq-cta p { font-size: 15px; line-height: 22px; color: var(--muted); max-width: 560px; }
+.gamilea-faq-page .faq-cta-button { width: 220px; height: 48px; border-radius: 8px; font-size: 16px; font-weight: 600; }
+
+@media (max-width: 900px) {
+    .faq-list { grid-template-columns: minmax(0, 1fr); }
+    .faq-cta { padding: 40px 24px; }
+}
+@media (max-width: 600px) {
+    .faq-inner { width: calc(100% - 32px); }
+    .faq-hero { padding: 40px 0 24px; }
+    .gamilea-faq-page .site-main h1 { font-size: 34px; }
+    .faq-tabs { padding-bottom: 32px; }
+    .faq-tabs-row { gap: 10px; }
+    .faq-tab { padding: 9px 16px; font-size: 13px; }
+    .faq-grid, .faq-cta-section { padding-bottom: 40px; }
+    .faq-item { padding: 20px; }
+    .faq-cta h2 { font-size: 24px; }
+    .gamilea-faq-page .faq-cta-button { width: 100%; }
+}

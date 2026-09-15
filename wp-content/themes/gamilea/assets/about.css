@@ -1,0 +1,56 @@
+/* Figma: Sobre Nosotros / Desktop (210:2255). Bloques acf/abouthero, aboutvalues y aboutsteps. */
+.gamilea-about-page .site-main { width: 100%; max-width: none; margin: 0; padding: 0; }
+/* El título de la página lo pone el bloque de portada, no la plantilla genérica. */
+.gamilea-about-page .entry > h1 { display: none; }
+.about-hero h1, .about-values h2, .about-values h3, .about-steps h2, .about-steps h3,
+.about-hero p, .about-values p, .about-steps p { margin: 0; }
+.about-inner { width: min(1200px, calc(100% - 96px)); margin-inline: auto; }
+.about-eyebrow { font-size: 14px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: #354249; }
+
+/* Portada */
+.about-hero { background: #fff; padding: 80px 0; }
+.about-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 520px; align-items: center; gap: 80px; }
+.about-hero-copy { display: flex; flex-direction: column; gap: 24px; }
+.about-hero h1 { font-family: Marcellus, serif; font-weight: 400; font-size: 48px; line-height: 58px; letter-spacing: 0; color: var(--ink); }
+.about-lede { font-size: 16px; line-height: 26px; color: var(--muted); }
+.about-hero-media { position: relative; margin: 0; height: 420px; border-radius: 24px; overflow: hidden; background: var(--soft); }
+.about-hero-media img { width: 100%; height: 100%; object-fit: cover; }
+/* Tarjeta sobre la foto: se posiciona desde abajo para que no dependa del alto exacto del texto. */
+.about-hero-badge { position: absolute; left: 24px; bottom: 24px; display: flex; flex-direction: column; gap: 4px; max-width: 250px; padding: 12px 16px; border-radius: 14px; background: rgba(255, 255, 255, .94); }
+.about-hero-badge strong { font-size: 13px; font-weight: 600; color: #08171f; }
+.about-hero-badge span { font-size: 11px; color: #4f5c61; }
+
+/* Por qué confiar */
+.about-values { background: #fff; padding: 60px 0 80px; }
+.about-values .about-inner { display: flex; flex-direction: column; gap: 12px; }
+.about-values h2, .about-steps h2 { font-family: Marcellus, serif; font-weight: 400; font-size: 36px; line-height: 1.25; letter-spacing: 0; color: var(--ink); }
+.about-value-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+.about-value { display: flex; flex-direction: column; gap: 8px; padding: 16px 20px; border: 1px solid #d1d6d4; border-radius: var(--radius); background: #fbfbfa; }
+.about-value h3 { font-size: 14px; font-weight: 600; color: #08171f; }
+.about-value h3 span { margin-right: 4px; }
+.about-value p { font-size: 11px; line-height: 16px; color: #4f5c61; }
+
+/* Así funciona */
+.about-steps { background: var(--soft); padding: 80px 0; }
+.about-steps .about-inner { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.about-step-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; width: 100%; margin: 36px 0 0; padding: 0; list-style: none; text-align: left; }
+.about-step { display: flex; flex-direction: column; gap: 16px; padding: 24px; border: 1px solid #ced3d5; border-radius: var(--radius); background: #fff; }
+.about-step-number { font-family: Marcellus, serif; font-size: 32px; line-height: 1; color: var(--ink); }
+.about-step h3 { font-size: 18px; font-weight: 600; color: var(--ink); }
+.about-step p { font-size: 14px; line-height: 22px; color: var(--muted); }
+
+@media (max-width: 1100px) {
+    .about-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+    .about-hero-media { height: 340px; }
+    .about-value-grid, .about-step-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+    .about-inner { width: calc(100% - 32px); }
+    .about-hero { padding: 40px 0; }
+    .about-hero h1 { font-size: 34px; line-height: 1.2; }
+    .about-hero-media { height: 260px; }
+    .about-values { padding: 40px 0; }
+    .about-steps { padding: 40px 0; }
+    .about-values h2, .about-steps h2 { font-size: 28px; }
+    .about-value-grid, .about-step-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+}

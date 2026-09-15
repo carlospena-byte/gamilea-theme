@@ -80,11 +80,12 @@ function gamilea_seed_footer_options() {
             array('label'=>'Nuevos productos','url'=>home_url('/?collection=new#bestsellers')),
             array('label'=>'Más vendidos','url'=>home_url('/?collection=popular#bestsellers')),
         )),
+        // Estos tres temas se responden en las FAQ: enlazan a la página ya filtrada por su categoría.
         array('title'=>'Ayuda','links'=>array(
-            array('label'=>'Seguimiento de pedido','url'=>home_url('/my-account/orders')),
-            array('label'=>'Envíos','url'=>home_url('/envios')),
-            array('label'=>'Devoluciones','url'=>home_url('/devoluciones')),
-            array('label'=>'Preguntas frecuentes','url'=>home_url('/ayuda')),
+            array('label'=>'Seguimiento de pedido','url'=>gamilea_faq_category_url('envios')),
+            array('label'=>'Envíos','url'=>gamilea_faq_category_url('envios')),
+            array('label'=>'Devoluciones','url'=>gamilea_faq_category_url('devoluciones')),
+            array('label'=>'Preguntas frecuentes','url'=>gamilea_faq_category_url()),
             array('label'=>'Contáctanos','url'=>home_url('/contacto')),
         )),
         array('title'=>'Nosotros','links'=>array(

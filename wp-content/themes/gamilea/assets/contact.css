@@ -1,0 +1,94 @@
+/* Figma: Contáctanos / Desktop (210:2419). Bloques acf/contacthero, contactsupport y contactlinks. */
+.gamilea-contact-page .site-main { width: 100%; max-width: none; margin: 0; padding: 0; }
+/* El título de la página lo pone el bloque de portada, no la plantilla genérica. */
+.gamilea-contact-page .entry > h1 { display: none; }
+.contact-hero, .contact-main, .contact-self-service { --contact-pill: #f7f7f5; --contact-card: #f9f8f6; --contact-icon-bg: #e5f5f0; }
+.contact-hero h1, .contact-main h2, .contact-main h3, .contact-self-service h2, .contact-hero p, .contact-main p, .contact-self-service p { margin: 0; }
+.contact-inner { width: min(1200px, calc(100% - 96px)); margin-inline: auto; }
+.contact-arrow-link { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; color: var(--ink); }
+a.contact-arrow-link:hover { color: var(--green); }
+
+/* Portada */
+.contact-hero { background: #fff; padding: 72px 0 48px; }
+.contact-hero .contact-inner { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.contact-eyebrow { font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: .02em; }
+.contact-hero h1 { font-family: Marcellus, serif; font-weight: 400; font-size: 48px; line-height: 1.25; letter-spacing: 0; color: var(--ink); }
+.contact-lede { font-size: 16px; line-height: 24px; color: var(--muted); max-width: 690px; }
+.contact-assurance { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.contact-assurance li { display: flex; }
+/* La píldora se pinta en el hijo para que, cuando lleve enlace, toda su superficie sea clicable. */
+.contact-assurance a, .contact-assurance span { display: inline-flex; align-items: center; background: var(--contact-pill); border-radius: 999px; padding: 10px 16px; font-size: 13px; font-weight: 600; color: var(--ink); }
+.contact-assurance a { transition: background .2s, color .2s; }
+.contact-assurance a:hover { background: #e8e6e0; color: var(--ink); }
+
+/* Canales de atención */
+.contact-main { background: #fff; padding: 36px 0; }
+.contact-columns { display: grid; grid-template-columns: minmax(0, 520fr) minmax(0, 632fr); gap: 48px; align-items: start; }
+.contact-main h2, .contact-self-service h2 { font-family: Marcellus, serif; font-weight: 400; font-size: 30px; line-height: 1.3; letter-spacing: 0; color: var(--ink); }
+.contact-channels { display: flex; flex-direction: column; gap: 16px; }
+.contact-lifestyle { width: 100%; height: 280px; object-fit: cover; border-radius: 20px; display: block; }
+.contact-channels-intro { font-size: 14px; line-height: 22px; color: var(--muted); max-width: 400px; }
+.contact-channel { display: flex; align-items: flex-start; gap: 16px; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; }
+.contact-channel-icon { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 22px; background: var(--contact-icon-bg); display: flex; align-items: center; justify-content: center; }
+.contact-channel-icon img { width: 24px; height: 24px; display: block; }
+.contact-channel-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.contact-channel-body h3 { font-size: 17px; font-weight: 600; line-height: 22px; margin: 0; }
+.contact-channel-body p { font-size: 14px; line-height: 22px; color: var(--muted); }
+
+/* Tarjeta del formulario: el contenido lo genera Fluent Forms, aquí solo se le da el aspecto del diseño. */
+.contact-form-card { background: var(--contact-card); border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 20px; }
+.contact-form-intro { font-size: 14px; line-height: 22px; color: var(--muted); }
+.contact-form-placeholder { font-size: 14px; line-height: 20px; color: var(--muted); background: #fff; border: 1px dashed var(--line); border-radius: 10px; padding: 16px; }
+.contact-form-card .fluentform { margin: 0; }
+/* Fluent Forms envuelve todos los campos en un <fieldset>, así que la retícula va ahí, no en el <form>. */
+.contact-form-card .frm-fluent-form > fieldset { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 16px; border: 0; margin: 0; padding: 0; min-width: 0; }
+.contact-form-card .ff-el-group { grid-column: span 1; margin: 0; }
+/* Mensaje, textos libres, avisos y botón ocupan la fila completa; los campos simples van a media fila. */
+.contact-form-card .ff-el-group:has(textarea),
+.contact-form-card .ff-el-group:has(.ff-btn),
+.contact-form-card .ff-el-group:has(.ff-el-custom-html),
+.contact-form-card .ff_submit_btn_wrapper,
+.contact-form-card .ff-custom_html,
+.contact-form-card .ff-message-success,
+.contact-form-card .ff-errors-in-stack { grid-column: 1 / -1; }
+.contact-form-card .ff-el-input--label label { font-size: 13px; font-weight: 600; line-height: 18px; color: var(--ink); margin-bottom: 8px; }
+.contact-form-card .ff-el-form-control { width: 100%; height: auto; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 14px; font-family: inherit; font-size: 14px; line-height: 20px; color: var(--ink); box-shadow: none; }
+.contact-form-card textarea.ff-el-form-control { height: 128px; min-height: 128px; resize: vertical; }
+.contact-form-card select.ff-el-form-control { appearance: auto; }
+.contact-form-card .ff-el-form-control::placeholder { color: var(--muted); opacity: 1; }
+.contact-form-card .ff-el-form-control:focus { border-color: var(--ink); outline: 0; }
+.contact-form-card .ff-el-custom-html, .contact-form-card .ff-custom_html { font-size: 12px; line-height: 17px; color: var(--muted); }
+.contact-form-card .ff-el-is-error .ff-el-form-control { border-color: #c8604a; }
+.contact-form-card .error-text, .contact-form-card .text-danger { font-size: 12px; line-height: 17px; color: #97402f; margin-top: 6px; }
+.contact-form-card .ff-message-success { background: var(--contact-icon-bg); border: 0; border-radius: 10px; padding: 16px; font-size: 14px; line-height: 20px; color: var(--green); }
+.contact-form-card .ff-btn-submit, .contact-form-card .frm-fluent-form .ff-btn-submit { width: 200px; max-width: 100%; height: 48px; padding: 0 20px; border: 0; border-radius: 10px; background: var(--ink); color: #fff; font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1; }
+.contact-form-card .ff-btn-submit:hover { background: #21413b; color: #fff; }
+
+/* Accesos rápidos */
+.contact-self-service { background: var(--contact-pill); padding: 54px 0; }
+.contact-self-service .contact-inner { display: flex; flex-direction: column; gap: 28px; }
+.contact-self-service-intro { font-size: 14px; line-height: 22px; color: var(--muted); max-width: 530px; }
+.contact-quick-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.contact-quick-link { display: flex; flex-direction: column; gap: 8px; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px; transition: box-shadow .2s, transform .2s; }
+.contact-quick-link:hover { color: var(--ink); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(21, 38, 31, .07); }
+.contact-quick-link strong { font-size: 15px; font-weight: 600; line-height: 20px; }
+.contact-quick-link-text { font-size: 13px; line-height: 19px; color: var(--muted); }
+.contact-quick-link .contact-arrow-link { font-size: 13px; }
+
+@media (max-width: 1100px) {
+    .contact-columns { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .contact-quick-links { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+    .contact-inner { width: calc(100% - 32px); }
+    .contact-hero { padding: 40px 0 32px; }
+    .contact-hero h1 { font-size: 34px; }
+    .contact-main h2, .contact-self-service h2 { font-size: 26px; }
+    .contact-main { padding: 24px 0; }
+    .contact-lifestyle { height: 200px; }
+    .contact-form-card { padding: 24px 20px; border-radius: 20px; }
+    .contact-form-card .frm-fluent-form > fieldset { grid-template-columns: minmax(0, 1fr); }
+    .contact-form-card .ff-el-group { grid-column: 1 / -1; }
+    .contact-form-card .ff-btn-submit { width: 100%; }
+    .contact-self-service { padding: 40px 0; }
+}

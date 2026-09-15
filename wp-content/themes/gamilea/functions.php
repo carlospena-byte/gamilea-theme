@@ -144,6 +144,14 @@ function tienda_subscribe() {
     wp_safe_redirect( home_url( '/?subscription=success#newsletter' ) ); exit;
 }
 
+/** Normaliza un enlace escrito en un campo ACF: acepta rutas del sitio, mailto:, tel: y URLs completas. */
+function gamilea_link_url($url, $fallback = '') {
+    $url = trim((string) $url);
+    if ('' === $url) { $url = $fallback; }
+    if ('' === $url) { return ''; }
+    if (preg_match('#^(https?:|mailto:|tel:|\#)#i', $url)) { return $url; }
+    return home_url($url);
+}
 function gamilea_asset($name) { return get_template_directory_uri() . '/assets/figma/' . $name; }
 function gamilea_image($name, $class = '', $alt = '') { return '<img class="' . esc_attr($class) . '" src="' . esc_url(gamilea_asset($name)) . '" alt="' . esc_attr($alt) . '">'; }
 function gamilea_crop($class, $alt = '') { return '<span class="figma-crop ' . esc_attr($class) . '">' . gamilea_image('imgPhoto.png', '', $alt) . '</span>'; }
@@ -161,3 +169,6 @@ require_once get_template_directory() . '/inc/mobile-menu.php';
 require_once get_template_directory() . '/inc/recovery.php';
 require_once get_template_directory() . '/inc/checkout-locations.php';
 require_once get_template_directory() . '/inc/order-success.php';
+require_once get_template_directory() . '/inc/contact.php';
+require_once get_template_directory() . '/inc/faq.php';
+require_once get_template_directory() . '/inc/about.php';

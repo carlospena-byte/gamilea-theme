@@ -1,0 +1,251 @@
+{
+  "fields": [
+    {
+      "index": 0,
+      "element": "input_text",
+      "uniqElKey": "el_e17a599611aa",
+      "attributes": {
+        "type": "text",
+        "name": "nombre",
+        "value": "",
+        "id": "",
+        "class": "",
+        "placeholder": "Tu nombre",
+        "required": true
+      },
+      "settings": {
+        "container_class": "",
+        "placeholder": "Tu nombre",
+        "label": "Nombre",
+        "label_placement": "",
+        "help_message": "",
+        "admin_field_label": "Nombre",
+        "prefix_label": "",
+        "suffix_label": "",
+        "validation_rules": {
+          "required": {
+            "value": true,
+            "message": "Este campo es obligatorio"
+          }
+        },
+        "conditional_logics": []
+      },
+      "editor_options": {
+        "title": "Nombre",
+        "icon_class": "ff-edit-text",
+        "template": "inputText"
+      }
+    },
+    {
+      "index": 1,
+      "element": "input_email",
+      "uniqElKey": "el_5670200c29f4",
+      "attributes": {
+        "type": "email",
+        "name": "email",
+        "value": "",
+        "id": "",
+        "class": "",
+        "placeholder": "tu@email.com",
+        "required": true
+      },
+      "settings": {
+        "container_class": "",
+        "placeholder": "tu@email.com",
+        "label": "Email",
+        "label_placement": "",
+        "help_message": "",
+        "admin_field_label": "Email",
+        "prefix_label": "",
+        "suffix_label": "",
+        "validation_rules": {
+          "required": {
+            "value": true,
+            "message": "Este campo es obligatorio"
+          },
+          "email": {
+            "value": true,
+            "message": "Escribe un correo válido"
+          }
+        },
+        "conditional_logics": []
+      },
+      "editor_options": {
+        "title": "Email",
+        "icon_class": "ff-edit-text",
+        "template": "inputText"
+      }
+    },
+    {
+      "index": 2,
+      "element": "select",
+      "uniqElKey": "el_72162bf6f3d9",
+      "attributes": {
+        "name": "motivo",
+        "value": "",
+        "id": "",
+        "class": "",
+        "required": true
+      },
+      "settings": {
+        "container_class": "",
+        "placeholder": "Selecciona una opción",
+        "label": "Motivo de consulta",
+        "label_placement": "",
+        "help_message": "",
+        "admin_field_label": "Motivo de consulta",
+        "validation_rules": {
+          "required": {
+            "value": true,
+            "message": "Este campo es obligatorio"
+          }
+        },
+        "conditional_logics": [],
+        "enable_select_2": "no",
+        "advanced_options": [
+          {
+            "label": "Estado de un pedido",
+            "value": "Estado de un pedido"
+          },
+          {
+            "label": "Envíos y entregas",
+            "value": "Envíos y entregas"
+          },
+          {
+            "label": "Devoluciones o cambios",
+            "value": "Devoluciones o cambios"
+          },
+          {
+            "label": "Información de un producto",
+            "value": "Información de un producto"
+          },
+          {
+            "label": "Pagos y facturación",
+            "value": "Pagos y facturación"
+          },
+          {
+            "label": "Otro tema",
+            "value": "Otro tema"
+          }
+        ]
+      },
+      "editor_options": {
+        "title": "Motivo de consulta",
+        "icon_class": "ff-edit-dropdown",
+        "template": "select"
+      }
+    },
+    {
+      "index": 3,
+      "element": "input_text",
+      "uniqElKey": "el_aa36c3c0d9d1",
+      "attributes": {
+        "type": "text",
+        "name": "numero_pedido",
+        "value": "",
+        "id": "",
+        "class": "",
+        "placeholder": "Opcional · Ej. #1048",
+        "required": false
+      },
+      "settings": {
+        "container_class": "",
+        "placeholder": "Opcional · Ej. #1048",
+        "label": "Número de pedido",
+        "label_placement": "",
+        "help_message": "",
+        "admin_field_label": "Número de pedido",
+        "prefix_label": "",
+        "suffix_label": "",
+        "validation_rules": {
+          "required": {
+            "value": false,
+            "message": ""
+          }
+        },
+        "conditional_logics": []
+      },
+      "editor_options": {
+        "title": "Número de pedido",
+        "icon_class": "ff-edit-text",
+        "template": "inputText"
+      }
+    },
+    {
+      "index": 4,
+      "element": "textarea",
+      "uniqElKey": "el_becedd2aefd3",
+      "attributes": {
+        "name": "mensaje",
+        "value": "",
+        "id": "",
+        "class": "",
+        "placeholder": "Cuéntanos cómo podemos ayudarte…",
+        "rows": 5,
+        "cols": 2,
+        "required": true
+      },
+      "settings": {
+        "container_class": "",
+        "placeholder": "Cuéntanos cómo podemos ayudarte…",
+        "label": "Mensaje",
+        "label_placement": "",
+        "help_message": "",
+        "admin_field_label": "Mensaje",
+        "validation_rules": {
+          "required": {
+            "value": true,
+            "message": "Este campo es obligatorio"
+          }
+        },
+        "conditional_logics": []
+      },
+      "editor_options": {
+        "title": "Mensaje",
+        "icon_class": "ff-edit-textarea",
+        "template": "inputTextarea"
+      }
+    },
+    {
+      "index": 5,
+      "element": "custom_html",
+      "uniqElKey": "el_08f85c14ea5c",
+      "attributes": {},
+      "settings": {
+        "container_class": "",
+        "conditional_logics": [],
+        "html_codes": "<p class=\"contact-privacy\">Usaremos tus datos únicamente para responder esta consulta. No compartimos tu información con terceros para marketing.</p>"
+      },
+      "editor_options": {
+        "title": "Aviso de privacidad",
+        "icon_class": "ff-edit-html",
+        "template": "customHTML"
+      }
+    }
+  ],
+  "submitButton": {
+    "uniqElKey": "el_63c01ed1a080",
+    "element": "button",
+    "attributes": {
+      "type": "submit",
+      "class": ""
+    },
+    "settings": {
+      "align": "left",
+      "button_style": "default",
+      "container_class": "",
+      "help_message": "",
+      "background_color": "#081820",
+      "button_size": "md",
+      "color": "#ffffff",
+      "button_ui": {
+        "type": "default",
+        "text": "Enviar mensaje",
+        "img_url": ""
+      }
+    },
+    "editor_options": {
+      "title": "Enviar mensaje"
+    }
+  }
+}

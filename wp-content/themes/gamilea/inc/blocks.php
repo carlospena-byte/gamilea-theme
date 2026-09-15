@@ -16,9 +16,13 @@ function gamilea_field($name, $default = '') {
     return ($value === '' || $value === null || $value === false) ? $default : $value;
 }
 
-/** Field definitions shared by block registration and by the default homepage seed below. */
+/**
+ * Field definitions shared by block registration and by the default homepage seed below.
+ * Other pages add their own blocks through the filter (see inc/contact.php), so they
+ * reuse the same registration, seeding and field-key helpers as the homepage ones.
+ */
 function gamilea_block_defs() {
-    return array(
+    return apply_filters('gamilea_block_defs', array(
         'hero' => array(
             'title'=>'GA·MI·LEA · Portada','icon'=>'cover-image',
             'fields'=>array(
@@ -98,7 +102,7 @@ function gamilea_block_defs() {
                 array('name'=>'benefit2','label'=>'Beneficio 3','type'=>'text','default_value'=>'Consejos y más'),
             ),
         ),
-    );
+    ));
 }
 
 add_action('acf/init', function () {
