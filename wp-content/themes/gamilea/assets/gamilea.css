@@ -101,3 +101,15 @@ body{font-variation-settings:'opsz' 14;font-size:16px}h1,h2,h3{letter-spacing:0}
 /* Fewer cards than grid columns: size cards to their natural width and center the row instead of stretching. */
 .category-grid--fit{grid-template-columns:repeat(auto-fit,246px);justify-content:center}
 .product-grid--fit{grid-template-columns:repeat(auto-fit,246px);justify-content:center}
+
+/* Define the complete search field, including its submit button. */
+.site-header .header-search {
+    border: 1px solid #b9c7c1;
+    border-radius: 12px;
+    background: #fff;
+}
+.site-header .header-search:hover { border-color: #829b8f; }
+.site-header .header-search:focus-within {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(20, 100, 81, .12);
+}

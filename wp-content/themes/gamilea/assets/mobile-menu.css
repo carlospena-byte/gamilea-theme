@@ -1,0 +1,22 @@
+/* A quiet, inset navigation panel inspired by the mobile reference. */
+.mobile-menu-panel{box-sizing:border-box;position:fixed;inset:12px auto 12px 12px;margin:0;width:min(360px,calc(100vw - 24px));height:calc(100vh - 24px);height:calc(100dvh - 24px);max-width:none;max-height:none;padding:20px 24px 32px;border:1px solid #c2d5ce;border-radius:18px;background:#e7eeeb;color:#20342e;overflow-y:auto;overscroll-behavior:contain;box-shadow:0 16px 60px #132c2526}
+.mobile-menu-panel::backdrop{background:#14251f59;backdrop-filter:blur(3px)}
+.mobile-menu-panel[open]{display:flex;flex-direction:column;animation:mobile-menu-enter .2s ease-out}
+.mobile-menu-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px}
+.mobile-menu-title{font-size:18px;line-height:1.4;letter-spacing:-.5px;overflow-wrap:anywhere}
+.mobile-menu-close.icon-button{flex:0 0 44px;width:44px;height:44px;margin:-10px -12px -10px 0;color:#537d6d;border:0;background:transparent}
+.mobile-menu-close .icon{width:26px;height:26px}
+.mobile-menu-panel nav ul{display:flex;flex-direction:column;align-items:stretch;gap:0;list-style:none;margin:0;padding:0;font-size:20px;font-weight:400}
+.mobile-menu-panel nav a{display:block;width:fit-content;padding:9px 0;color:inherit;line-height:1.4;text-decoration:none;overflow-wrap:anywhere}
+.mobile-menu-panel nav a:hover,.mobile-menu-panel nav .current-menu-item>a,.mobile-menu-panel nav .current-menu-ancestor>a{color:#467966;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
+.mobile-menu-panel nav .sub-menu{position:static;display:flex;padding:0 0 8px 18px;font-size:16px;background:transparent;box-shadow:none;border:0}
+.mobile-menu-panel :focus-visible{outline:2px solid #39745f;outline-offset:4px;border-radius:2px}
+.mobile-menu-information{margin-top:30px;padding-top:24px;border-top:1px solid #cbdad3;display:grid;gap:24px}
+.mobile-menu-info-block{font-size:14px;line-height:1.55;overflow-wrap:anywhere}
+.mobile-menu-info-block h2{font-family:inherit;font-size:14px;font-weight:600;line-height:1.5;letter-spacing:0;margin:0 0 8px}
+.mobile-menu-info-block p{margin:0 0 8px}.mobile-menu-info-block p:last-child{margin-bottom:0}
+.mobile-menu-info-block a{color:inherit;text-underline-offset:3px}.mobile-menu-info-block a:hover{color:#467966}
+html.mobile-menu-open,html.mobile-menu-open body{overflow:hidden}
+@media(max-width:1100px){.site-header #primary-nav{display:none}.mobile-menu-toggle.icon-button{width:44px;height:44px;align-items:center;justify-content:center;border:0}.mobile-menu-toggle:focus-visible{outline:2px solid #39745f;outline-offset:3px}}
+@keyframes mobile-menu-enter{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){.mobile-menu-panel[open]{animation:none}}

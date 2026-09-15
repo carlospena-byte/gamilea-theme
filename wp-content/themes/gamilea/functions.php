@@ -45,6 +45,16 @@ function gamilea_navigation() {
     echo '</ul>';
 }
 
+/** Used only while no menu is assigned to the "primary" location in Appearance > Menus. */
+function gamilea_primary_menu_fallback() {
+    echo '<ul class="menu">';
+    foreach ( array( 'salud' => 'Salud', 'cuidado-y-belleza' => 'Cuidado y Belleza', 'tecnologia' => 'Tecnología', 'hogar' => 'Hogar', 'bebe' => 'Bebé' ) as $slug => $label ) {
+        echo '<li><a href="' . esc_url( tienda_category_url( $slug ) ) . '">' . esc_html( $label ) . '</a></li>';
+    }
+    echo '<li><a class="offer-link" href="' . esc_url( home_url( '/?collection=sale#bestsellers' ) ) . '">' . esc_html__( 'Ofertas', 'gamilea' ) . '</a></li>';
+    echo '</ul>';
+}
+
 require_once get_template_directory() . '/inc/icons.php';
 function tienda_asset( $name ) { return get_template_directory_uri() . '/assets/images/' . $name . '.jpg'; }
 function tienda_category_url( $slug ) {
@@ -147,6 +157,7 @@ function gamilea_product_title($product) {
 
 require_once get_template_directory() . '/inc/blocks.php';
 require_once get_template_directory() . '/inc/options.php';
+require_once get_template_directory() . '/inc/mobile-menu.php';
 require_once get_template_directory() . '/inc/recovery.php';
 require_once get_template_directory() . '/inc/checkout-locations.php';
 require_once get_template_directory() . '/inc/order-success.php';
