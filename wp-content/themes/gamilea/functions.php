@@ -172,3 +172,13 @@ require_once get_template_directory() . '/inc/order-success.php';
 require_once get_template_directory() . '/inc/contact.php';
 require_once get_template_directory() . '/inc/faq.php';
 require_once get_template_directory() . '/inc/about.php';
+
+add_filter('body_class', function ($classes) {
+    if (is_page_template('page-legal.php')) { $classes[] = 'gamilea-legal-page'; }
+    return $classes;
+});
+add_action('wp_enqueue_scripts', function () {
+    if (!is_page_template('page-legal.php')) { return; }
+    wp_enqueue_style('gamilea-legal', get_template_directory_uri() . '/assets/legal.css', array('gamilea-design'), (string) filemtime(get_template_directory() . '/assets/legal.css'));
+    wp_enqueue_script('gamilea-legal', get_template_directory_uri() . '/assets/legal.js', array(), (string) filemtime(get_template_directory() . '/assets/legal.js'), true);
+});

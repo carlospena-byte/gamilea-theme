@@ -1,0 +1,17 @@
+.gamilea-legal-page #main{width:100%;max-width:none;margin:0;padding:0}
+.legal-hero{padding-block:80px 48px;text-align:center}
+.legal-hero>p{font-size:13px;font-weight:600;color:var(--muted);margin:0 0 16px}
+.gamilea-legal-page .legal-hero h1{font-family:Marcellus,serif;font-size:48px;line-height:1.25;font-weight:400;margin:0 0 32px}
+.legal-hero nav{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.legal-hero nav a{border:1px solid var(--line);border-radius:999px;padding:12px 22px;font-size:14px}
+.legal-hero nav a[aria-current]{background:var(--ink);color:white;border-color:var(--ink)}
+.legal-layout{display:grid;grid-template-columns:240px minmax(0,800px);justify-content:center;gap:64px;padding-bottom:80px}
+.legal-index{align-self:start;position:sticky;top:24px;border:1px solid var(--line);border-radius:16px;padding:24px}
+.legal-index h2{font-family:inherit;font-size:15px;line-height:1.4;margin:0 0 16px}
+.legal-index nav{display:grid;gap:12px}.legal-index a{font-size:13px;line-height:1.5;color:var(--muted)}
+.legal-content{font-size:16px;line-height:1.8;min-width:0}.legal-content h2{font-family:Marcellus,serif;font-size:26px;font-weight:400;line-height:1.4;margin:36px 0 16px;scroll-margin-top:32px}
+.legal-content p,.legal-content ul{margin-bottom:20px}.legal-content a{text-decoration:underline;text-underline-offset:3px;color:var(--green)}
+.legal-content .legal-notice{padding:24px;border-radius:16px;background:var(--soft);font-size:14px;color:var(--muted)}
+.legal-index a:hover{color:var(--green)}.legal-layout a:focus-visible,.legal-hero a:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+@media(max-width:900px){.legal-layout{grid-template-columns:1fr;gap:24px}.legal-index{position:static}.legal-index nav{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.legal-hero{padding-block:40px 32px}.gamilea-legal-page .legal-hero h1{font-size:34px}.legal-layout{padding-bottom:40px}.legal-index nav{grid-template-columns:1fr}.legal-content h2{font-size:24px}}
