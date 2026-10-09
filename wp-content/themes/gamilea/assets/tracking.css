@@ -1,0 +1,21 @@
+.gamilea-tracking { max-width: 1100px; padding-block: 40px 64px; }
+.tracking-hero { margin-bottom: 24px; }
+.tracking-eyebrow { margin: 0 0 8px; font-size: 14px; color: var(--muted); letter-spacing: .04em; }
+.gamilea-tracking h1 { margin: 0 0 8px; font-size: 36px; line-height: 46px; }
+.tracking-current { display: inline-block; margin: 0; padding: 6px 14px; border-radius: 999px; background: #d6eee7; color: var(--green); font-weight: 600; font-size: 14px; }
+.tracking-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 24px; align-items: start; }
+.tracking-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; background: #fff; }
+.tracking-card h2 { margin: 0 0 16px; font-size: 20px; line-height: 26px; }
+.tracking-timeline { list-style: none; margin: 0; padding: 0; }
+.tracking-timeline li { position: relative; display: flex; flex-direction: column; gap: 2px; padding: 0 0 20px 28px; }
+.tracking-timeline li::before { content: ""; position: absolute; left: 4px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.tracking-timeline li::after { content: ""; position: absolute; left: 8px; top: 20px; bottom: 0; width: 2px; background: var(--line); }
+.tracking-timeline li:last-child { padding-bottom: 0; }
+.tracking-timeline li:last-child::after { display: none; }
+.tracking-timeline li.is-current::before { background: var(--green); box-shadow: 0 0 0 4px #d6eee7; }
+.tracking-timeline time { font-size: 14px; color: var(--muted); }
+.tracking-card dl { margin: 0; }
+.tracking-card dt { font-size: 13px; color: var(--muted); margin-top: 12px; }
+.tracking-card dd { margin: 2px 0 0; font-weight: 500; }
+.gamilea-tracking-link { margin: 16px 0 0; }
+@media (max-width: 700px) { .tracking-grid { grid-template-columns: 1fr; } .gamilea-tracking h1 { font-size: 28px; line-height: 36px; } }
