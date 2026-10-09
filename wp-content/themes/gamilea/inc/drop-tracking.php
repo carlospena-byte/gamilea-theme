@@ -147,3 +147,10 @@ add_action( 'dwc_drop_status_changed', function ( $order, $drop_status ) {
     $mailer->send( $order->get_billing_email(), $heading . ' – ' . get_bloginfo( 'name' ), $mailer->wrap_message( $heading, $body ) );
     $order->add_order_note( sprintf( 'Correo de seguimiento enviado al cliente: "%s".', $heading ) );
 }, 10, 2 );
+
+/** Admin: Gamilea tracking link under the Drop box on the order screen. */
+add_action( 'woocommerce_admin_order_data_after_shipping_address', function ( $order ) {
+    if ( ! $order->get_meta( '_dwc_order_id' ) ) { return; }
+    echo '<h3>GA·MI·LEA</h3>';
+    printf( '<p><a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a></p>', esc_url( gamilea_tracking_url( $order ) ), esc_html__( 'Seguimiento Gamilea', 'gamilea' ) );
+}, 20 );
