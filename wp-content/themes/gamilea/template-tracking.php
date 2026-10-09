@@ -14,10 +14,10 @@ $day      = function ( $ts ) { return wp_date( 'j \d\e F', $ts ); };
 $time     = function ( $ts ) { return wp_date( 'g:i', $ts ) . ' ' . ( 'am' === wp_date( 'a', $ts ) ? 'a. m.' : 'p. m.' ); };
 
 get_header(); ?>
-<div class="gamilea-tracking">
+<div class="gamilea-tracking container">
 <?php if ( ! $order ) : ?>
     <h1>No encontramos este pedido</h1>
-    <p>El enlace de seguimiento no es válido. Revisa el correo de tu pedido o <a href="<?php echo esc_url( home_url( '/contacto/' ) ); ?>">escríbenos</a>.</p>
+    <p>El enlace de seguimiento no es válido. Revisa el correo de tu pedido, <a href="<?php echo esc_url( gamilea_tracking_lookup_url() ); ?>">consulta tu pedido con tu número y correo</a> o <a href="<?php echo esc_url( home_url( '/contacto/' ) ); ?>">escríbenos</a>.</p>
 <?php else :
     $owner      = is_user_logged_in() && (int) $order->get_user_id() === get_current_user_id();
     $created    = $order->get_date_created() ? $order->get_date_created()->getTimestamp() : 0;

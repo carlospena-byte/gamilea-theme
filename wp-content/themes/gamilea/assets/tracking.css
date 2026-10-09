@@ -131,3 +131,35 @@
     .trk-actions { flex-direction: column-reverse; align-items: stretch; }
     .trk-button-outline { width: 100%; }
 }
+
+/* Figma: Track Order / Desktop (82:1797) — lookup form at /seguimiento/. */
+.gamilea-tracking-lookup { --secondary: #505b62; --muted: #657078; display: flex; align-items: center; gap: 48px; }
+.gamilea-tracking-lookup h1, .gamilea-tracking-lookup p, .gamilea-tracking-lookup ul { margin: 0; }
+.trk-lookup { flex: 0 0 560px; max-width: 100%; display: flex; flex-direction: column; gap: 24px; }
+.trk-lookup h1 { font-size: 40px; line-height: 1.4; font-weight: 700; letter-spacing: 0; }
+.trk-lookup-lead { font-size: 18px; line-height: 1.4; }
+.trk-lookup-form { display: flex; flex-direction: column; gap: 24px; }
+.trk-field { display: flex; flex-direction: column; gap: 2px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+.trk-field:focus-within { border-color: var(--ink); }
+.trk-field span { font-size: 11px; line-height: 14px; font-weight: 500; color: var(--secondary); }
+.trk-field input { border: 0; padding: 0; outline: 0; background: none; font: inherit; font-size: 15px; line-height: 20px; color: var(--ink); }
+.trk-field input::placeholder { color: var(--muted); }
+.trk-lookup-submit { height: 53px; border: 0; border-radius: 8px; background: var(--ink); color: #fff; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.trk-lookup-submit:hover { opacity: .9; }
+.trk-lookup-error { padding: 12px 16px; border-radius: 8px; background: #fdecea; color: #8a1f17; font-size: 14px; line-height: 20px; }
+.trk-example { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 24px; padding: 32px; background: var(--soft); }
+.trk-example-badge { align-self: flex-start; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font-size: 12px; line-height: 16px; font-weight: 700; color: var(--secondary); }
+.trk-example-info { display: flex; flex-direction: column; gap: 8px; }
+.trk-example-order { font-size: 28px; line-height: 1.4; font-weight: 700; }
+.trk-example-status { font-size: 22px; line-height: 1.4; font-weight: 700; }
+.trk-example-info ul { list-style: none; padding: 0; font-size: 18px; line-height: 1.4; white-space: pre-wrap; }
+.trk-example-card { display: flex; flex-direction: column; gap: 12px; padding: 24px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+.trk-example-card div { display: flex; justify-content: space-between; font-size: 16px; line-height: 21px; }
+.trk-example-card span { font-size: 14px; font-weight: 500; color: var(--green); }
+.trk-example-card p { font-size: 14px; line-height: 22px; color: var(--secondary); }
+@media (max-width: 900px) {
+    .gamilea-tracking-lookup { flex-direction: column; align-items: stretch; gap: 32px; }
+    .trk-lookup { flex-basis: auto; }
+    .trk-lookup h1 { font-size: 32px; }
+    .trk-example { padding: 24px; }
+}

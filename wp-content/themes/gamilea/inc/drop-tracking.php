@@ -101,22 +101,74 @@ function gamilea_tracking_requested_order() {
     return $order;
 }
 
+/* ---- Lookup page: /seguimiento/ (order number + billing email -> tracking link) ---- */
+
+add_filter( 'query_vars', function ( $vars ) { $vars[] = 'gamilea_tracking_lookup'; return $vars; } );
+
+add_action( 'init', function () {
+    add_rewrite_rule( '^seguimiento/?$', 'index.php?gamilea_tracking_lookup=1', 'top' );
+    if ( get_option( 'gamilea_tracking_rewrite' ) !== '1' ) {
+        flush_rewrite_rules( false );
+        update_option( 'gamilea_tracking_rewrite', '1' );
+    }
+} );
+
+function gamilea_tracking_lookup_url() { return home_url( '/seguimiento/' ); }
+
+/** Finds an order by the number and billing email the customer typed; null unless both match. */
+function gamilea_tracking_find_order( $number, $email ) {
+    $id    = absint( preg_replace( '/\D+/', '', (string) $number ) );
+    $email = strtolower( trim( (string) $email ) );
+    if ( ! $id || ! is_email( $email ) || ! function_exists( 'wc_get_order' ) ) { return null; }
+    $order = wc_get_order( $id );
+    if ( ! $order instanceof WC_Order ) { return null; }
+    if ( ! hash_equals( strtolower( (string) $order->get_billing_email() ), $email ) ) { return null; }
+    return $order;
+}
+
+/** Returns an error message, or '' after redirecting to the tracking page on success. */
+function gamilea_tracking_handle_lookup() {
+    if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) || ! isset( $_POST['gamilea_lookup_nonce'] ) ) { return ''; }
+    if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['gamilea_lookup_nonce'] ) ), 'gamilea_tracking_lookup' ) ) {
+        return 'La sesión expiró. Recarga la página e inténtalo de nuevo.';
+    }
+
+    $bucket   = 'gamilea_lkp_' . md5( (string) ( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+    $attempts = (int) get_transient( $bucket );
+    if ( $attempts >= 8 ) { return 'Demasiados intentos. Espera unos minutos e inténtalo de nuevo.'; }
+    set_transient( $bucket, $attempts + 1, 10 * MINUTE_IN_SECONDS );
+
+    $order = gamilea_tracking_find_order(
+        isset( $_POST['order_number'] ) ? wc_clean( wp_unslash( $_POST['order_number'] ) ) : '',
+        isset( $_POST['order_email'] ) ? sanitize_email( wp_unslash( $_POST['order_email'] ) ) : ''
+    );
+    if ( ! $order ) { return 'No encontramos un pedido con esos datos. Revisa el número y el correo que usaste al comprar.'; }
+
+    wp_safe_redirect( gamilea_tracking_url( $order ) );
+    exit;
+}
+
+add_filter( 'template_include', function ( $template ) {
+    if ( ! get_query_var( 'gamilea_tracking_lookup' ) ) { return $template; }
+    return get_template_directory() . '/template-tracking-lookup.php';
+}, 9 );
+
 add_filter( 'template_include', function ( $template ) {
     if ( ! get_query_var( 'gamilea_tracking' ) ) { return $template; }
     return get_template_directory() . '/template-tracking.php';
 } );
 
 add_filter( 'pre_get_document_title', function ( $title ) {
-    return get_query_var( 'gamilea_tracking' ) ? 'Seguimiento de tu pedido – GA·MI·LEA' : $title;
+    return ( get_query_var( 'gamilea_tracking' ) || get_query_var( 'gamilea_tracking_lookup' ) ) ? 'Seguimiento de tu pedido – GA·MI·LEA' : $title;
 } );
 
 add_action( 'wp_enqueue_scripts', function () {
-    if ( ! get_query_var( 'gamilea_tracking' ) ) { return; }
+    if ( ! get_query_var( 'gamilea_tracking' ) && ! get_query_var( 'gamilea_tracking_lookup' ) ) { return; }
     wp_enqueue_style( 'gamilea-tracking', get_template_directory_uri() . '/assets/tracking.css', array( 'gamilea-design' ), (string) filemtime( get_template_directory() . '/assets/tracking.css' ) );
 } );
 
 add_action( 'send_headers', function () {
-    if ( get_query_var( 'gamilea_tracking' ) ) { nocache_headers(); }
+    if ( get_query_var( 'gamilea_tracking' ) || get_query_var( 'gamilea_tracking_lookup' ) ) { nocache_headers(); }
 } );
 
 /** Button to the tracking page on order details (thank-you and My Account). */
