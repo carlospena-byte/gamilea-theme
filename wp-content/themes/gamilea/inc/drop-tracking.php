@@ -154,3 +154,105 @@ add_action( 'woocommerce_admin_order_data_after_shipping_address', function ( $o
     echo '<h3>GA·MI·LEA</h3>';
     printf( '<p><a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a></p>', esc_url( gamilea_tracking_url( $order ) ), esc_html__( 'Seguimiento Gamilea', 'gamilea' ) );
 }, 20 );
+
+/* ---- Own status history: the webhook gives exact times, Boxful's page does not map to our copy ---- */
+
+add_action( 'dwc_drop_status_changed', function ( $order, $drop_status ) {
+    $events = (array) $order->get_meta( '_gamilea_drop_events' );
+    $last   = $events ? end( $events ) : null;
+    if ( $last && isset( $last['status'] ) && $last['status'] === $drop_status ) { return; }
+    $events[] = array( 'status' => $drop_status, 'time' => time() );
+    $order->update_meta_data( '_gamilea_drop_events', $events );
+    $order->save();
+}, 5, 2 );
+
+/** Timeline copy for every Drop status: array( title, description ). */
+function gamilea_tracking_status_copy( $status ) {
+    $copy = array(
+        'pending_correction'    => array( 'Necesitamos revisar tu pedido', 'Estamos corrigiendo un dato de tu pedido y te contactaremos si hace falta.' ),
+        'registered'            => array( 'Pedido en preparación', 'Estamos preparando tu pedido para el envío.' ),
+        'fulfilled'             => array( 'Pedido preparado', 'Tu pedido está listo y será entregado a la paquetería.' ),
+        'created'               => array( 'Registrado en la paquetería', 'La paquetería registró tu envío y pronto lo recolectará.' ),
+        'registered_in_courier' => array( 'Registrado en la paquetería', 'La paquetería registró tu envío y pronto lo recolectará.' ),
+        'recollected'           => array( 'Recibido por el transportista', 'El paquete fue recogido y registrado para su envío.' ),
+        'inroute'               => array( 'Tu pedido está en camino', 'Salió a ruta hacia tu dirección.' ),
+        'in_agency'             => array( 'Tu pedido está en una agencia', 'Llegó a una agencia de la paquetería. Pronto se coordinará la entrega.' ),
+        'in_locker'             => array( 'Tu pedido está en un locker', 'Llegó a un locker de la paquetería.' ),
+        'not_recollected'       => array( 'No pudimos recolectar tu pedido', 'La paquetería no pudo recolectarlo. Estamos dando seguimiento.' ),
+        'not_delivered'         => array( 'No pudimos entregar tu pedido', 'La paquetería no pudo entregarlo. Escríbenos para coordinar un nuevo intento.' ),
+        'issue'                 => array( 'Hay una incidencia con tu envío', 'La paquetería reportó una incidencia. Estamos dando seguimiento.' ),
+        'delivered'             => array( 'Pedido entregado', 'Tu pedido fue entregado. ¡Gracias por comprar en GA·MI·LEA!' ),
+        'cancelled'             => array( 'Pedido cancelado', 'Tu pedido fue cancelado.' ),
+        'rejected'              => array( 'Pedido cancelado', 'Tu pedido fue cancelado.' ),
+        'cancelled_in_boxful'   => array( 'Envío cancelado', 'La paquetería canceló tu envío.' ),
+        'returned_to_warehouse' => array( 'Pedido devuelto', 'Tu pedido regresó a nuestro almacén. Escríbenos para ayudarte.' ),
+    );
+    return isset( $copy[ $status ] ) ? $copy[ $status ] : null;
+}
+
+/** Progress stage reached for a Drop status: 0 Confirmado, 1 Preparado, 2 En camino, 3 Entregado. */
+function gamilea_tracking_stage( $status ) {
+    if ( 'delivered' === $status ) { return 3; }
+    if ( in_array( $status, array( 'recollected', 'inroute', 'in_agency', 'in_locker', 'not_recollected', 'not_delivered', 'issue' ), true ) ) { return 2; }
+    if ( in_array( $status, array( 'fulfilled', 'created', 'registered_in_courier' ), true ) ) { return 1; }
+    return 0;
+}
+
+/** Everything the tracking page shows, built from the order, our own events and (optionally) Boxful's page. */
+function gamilea_tracking_view( $order, $shipment ) {
+    $status = (string) $order->get_meta( '_dwc_status' );
+    $stage  = gamilea_tracking_stage( $status );
+    $events = array_values( array_filter( (array) $order->get_meta( '_gamilea_drop_events' ), 'is_array' ) );
+    $boxful = $shipment && $shipment['history'] ? array_reverse( $shipment['history'] ) : array(); // oldest first
+    $created = $order->get_date_created() ? $order->get_date_created()->getTimestamp() : 0;
+
+    $rows = array( array( 'ts' => $created, 'title' => 'Pedido confirmado', 'desc' => 'Recibimos tu compra y comenzamos a preparar tu pedido.' ) );
+    if ( $events ) {
+        foreach ( $events as $e ) {
+            $copy = gamilea_tracking_status_copy( $e['status'] );
+            if ( $copy ) { $rows[] = array( 'ts' => (int) $e['time'], 'title' => $copy[0], 'desc' => $copy[1] ); }
+        }
+    } else {
+        foreach ( $boxful as $h ) { $rows[] = array( 'ts' => (int) strtotime( $h['date'] ), 'title' => $h['label'], 'desc' => '' ); }
+    }
+    usort( $rows, function ( $a, $b ) { return $b['ts'] <=> $a['ts']; } );
+
+    // Date shown under each progress stage: first event that reached it, else Boxful's first entry for "Preparado".
+    $stage_dates = array( 0 => $created, 1 => null, 2 => null, 3 => null );
+    foreach ( $events as $e ) {
+        $s = gamilea_tracking_stage( $e['status'] );
+        if ( $s > 0 && null === $stage_dates[ $s ] ) { $stage_dates[ $s ] = (int) $e['time']; }
+    }
+    if ( null === $stage_dates[1] && $stage >= 1 && $boxful ) { $stage_dates[1] = (int) strtotime( $boxful[0]['date'] ); }
+
+    $headline = array(
+        0 => array( 'En preparación', 'Estamos preparando tu pedido.' ),
+        1 => array( 'Preparado', 'tu pedido está preparado y pronto saldrá hacia ti.' ),
+        2 => array( 'En camino', 'tu pedido ya está en camino.' ),
+        3 => array( 'Entregado', 'tu pedido fue entregado.' ),
+    );
+    $chip = array( 0 => 'Preparando envío', 1 => 'Preparando envío', 2 => 'Envío en curso', 3 => 'Entregado' );
+    if ( in_array( $status, array( 'not_delivered', 'not_recollected', 'issue' ), true ) ) { $chip[2] = 'Requiere atención'; }
+    if ( in_array( $status, array( 'cancelled', 'rejected', 'cancelled_in_boxful', 'returned_to_warehouse' ), true ) ) {
+        $headline[ $stage ] = array( 'Cancelado', 'tu pedido no continuará con el envío.' );
+        $chip[ $stage ]     = 'Sin envío';
+    }
+
+    return array(
+        'status'      => $status,
+        'stage'       => $stage,
+        'stage_dates' => $stage_dates,
+        'rows'        => $rows,
+        'label'       => $headline[ $stage ][0],
+        'sentence'    => $headline[ $stage ][1],
+        'chip'        => $chip[ $stage ],
+        'updated'     => $rows ? $rows[0]['ts'] : 0,
+    );
+}
+
+/** j***@dominio.com — the tracking link can be forwarded, so the full address is not printed. */
+function gamilea_mask_email( $email ) {
+    if ( ! is_email( $email ) ) { return ''; }
+    list( $user, $domain ) = explode( '@', $email, 2 );
+    return substr( $user, 0, 1 ) . str_repeat( '*', max( 2, strlen( $user ) - 2 ) ) . ( strlen( $user ) > 1 ? substr( $user, -1 ) : '' ) . '@' . $domain;
+}
