@@ -7,7 +7,7 @@
 
 .gamilea-pdp{--sage:#d6eee7;--n50:#fafafa}
 .gamilea-pdp__top,.gamilea-pdp__details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px;align-items:start}
-.gamilea-pdp__details{margin-top:48px}
+.gamilea-pdp__details{margin-top:24px;grid-template-columns:minmax(0,1fr);gap:40px}
 
 /* Gallery */
 .gamilea-pdp__media{display:flex;flex-direction:column;gap:24px;min-width:0}
@@ -28,6 +28,7 @@
 
 /* Buy column */
 .gamilea-pdp__buy{display:flex;flex-direction:column;gap:16px;min-width:0}
+@media(min-width:901px){.gamilea-pdp__buy{position:sticky;top:24px}}
 .gamilea-pdp__eyebrow{margin:0;font-size:14px;line-height:20px;font-weight:500;color:var(--green)}
 .gamilea-commerce-page .site-main .gamilea-pdp h1.product_title{margin:0;font-family:inherit;font-size:48px;line-height:56px;font-weight:700;letter-spacing:-1.44px;text-align:left;color:var(--ink)}
 .gamilea-pdp__subtitle{margin:0;font-size:18px;line-height:28px;color:var(--muted)}
@@ -79,7 +80,9 @@
 @media(max-width:1100px){.gamilea-pdp .related ul.products{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:900px){
  .gamilea-pdp__top,.gamilea-pdp__details{grid-template-columns:minmax(0,1fr);gap:32px}
- .gamilea-pdp__details{margin-top:32px}
+ .gamilea-pdp__details{margin-top:0;gap:32px}
+ .gamilea-pdp__media{display:contents}
+ .gamilea-pdp__photo{order:1}.gamilea-pdp__features{order:2}.gamilea-pdp__buy{order:3}.gamilea-pdp__details{order:4}
  .gamilea-commerce-page .site-main .gamilea-pdp h1.product_title{font-size:34px;line-height:42px;letter-spacing:-1px}
 }
 @media(max-width:600px){

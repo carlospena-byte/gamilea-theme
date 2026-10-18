@@ -19,6 +19,29 @@ $pdp = gamilea_pdp_data($product);
                     <?php endforeach; ?>
                 </ul>
             <?php endif; ?>
+            <?php if ($pdp['about_intro'] || $pdp['about'] || $pdp['purchase'] || gamilea_pdp_option('ship_policy')) : ?>
+                <div class="gamilea-pdp__details">
+                    <section class="gamilea-pdp__info">
+                        <?php if ($pdp['about_intro'] || $pdp['about']) : ?>
+                            <h2><?php echo esc_html($pdp['about_title']); ?></h2>
+                            <?php if ($pdp['about_intro']) : ?><div class="gamilea-pdp__text"><?php echo wp_kses_post($pdp['about_intro']); ?></div><?php endif; ?>
+                            <?php foreach ($pdp['about'] as $row) : ?>
+                                <?php if ($row['title']) : ?><h3><?php echo esc_html($row['title']); ?></h3><?php endif; ?>
+                                <?php if ($row['text']) : ?><div class="gamilea-pdp__text"><?php echo wp_kses_post(wpautop(esc_html($row['text']))); ?></div><?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </section>
+                    <section class="gamilea-pdp__info">
+                        <h2><?php echo esc_html(gamilea_pdp_option('buy_title')); ?></h2>
+                        <h3>Entrega y costo de envío</h3>
+                        <div class="gamilea-pdp__text"><?php echo wp_kses_post(wpautop(esc_html(gamilea_pdp_option('ship_policy')))); ?></div>
+                        <?php foreach ($pdp['purchase'] as $row) : ?>
+                            <?php if ($row['title']) : ?><h3><?php echo esc_html($row['title']); ?></h3><?php endif; ?>
+                            <?php if ($row['text']) : ?><div class="gamilea-pdp__text"><?php echo wp_kses_post(wpautop(esc_html($row['text']))); ?></div><?php endif; ?>
+                        <?php endforeach; ?>
+                    </section>
+                </div>
+            <?php endif; ?>
         </div>
 
         <div class="gamilea-pdp__buy">
@@ -51,30 +74,6 @@ $pdp = gamilea_pdp_data($product);
             <div class="gamilea-pdp__cart"><?php woocommerce_template_single_add_to_cart(); ?></div>
         </div>
     </div>
-
-    <?php if ($pdp['about_intro'] || $pdp['about'] || $pdp['purchase'] || gamilea_pdp_option('ship_policy')) : ?>
-        <div class="gamilea-pdp__details">
-            <section class="gamilea-pdp__info">
-                <?php if ($pdp['about_intro'] || $pdp['about']) : ?>
-                    <h2><?php echo esc_html($pdp['about_title']); ?></h2>
-                    <?php if ($pdp['about_intro']) : ?><div class="gamilea-pdp__text"><?php echo wp_kses_post($pdp['about_intro']); ?></div><?php endif; ?>
-                    <?php foreach ($pdp['about'] as $row) : ?>
-                        <?php if ($row['title']) : ?><h3><?php echo esc_html($row['title']); ?></h3><?php endif; ?>
-                        <?php if ($row['text']) : ?><div class="gamilea-pdp__text"><?php echo wp_kses_post(wpautop(esc_html($row['text']))); ?></div><?php endif; ?>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </section>
-            <section class="gamilea-pdp__info">
-                <h2><?php echo esc_html(gamilea_pdp_option('buy_title')); ?></h2>
-                <h3>Entrega y costo de envío</h3>
-                <div class="gamilea-pdp__text"><?php echo wp_kses_post(wpautop(esc_html(gamilea_pdp_option('ship_policy')))); ?></div>
-                <?php foreach ($pdp['purchase'] as $row) : ?>
-                    <?php if ($row['title']) : ?><h3><?php echo esc_html($row['title']); ?></h3><?php endif; ?>
-                    <?php if ($row['text']) : ?><div class="gamilea-pdp__text"><?php echo wp_kses_post(wpautop(esc_html($row['text']))); ?></div><?php endif; ?>
-                <?php endforeach; ?>
-            </section>
-        </div>
-    <?php endif; ?>
 
     <?php if ($pdp['legal']) : ?><p class="gamilea-pdp__legal"><?php echo esc_html($pdp['legal']); ?></p><?php endif; ?>
 
