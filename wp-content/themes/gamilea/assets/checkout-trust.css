@@ -199,3 +199,38 @@
 	background-color: #17654f;
 	color: #fff;
 }
+
+/* More air between a field's floating label and its value (WooCommerce default is a 50px field
+   with the value starting right under the label). The `html` prefix outranks WooCommerce's own
+   `.wc-block-components-form .wc-block-components-text-input ...` rules, which otherwise win on
+   the text inputs and leave them at the default while the selects change. */
+html .wc-block-checkout .wc-block-components-text-input input[type="text"],
+html .wc-block-checkout .wc-block-components-text-input input[type="tel"],
+html .wc-block-checkout .wc-block-components-text-input input[type="email"] {
+	height: 62px;
+}
+html .wc-block-checkout .wc-block-components-text-input label {
+	top: 31px;
+}
+html .wc-block-checkout .wc-block-components-text-input.is-active input[type="text"],
+html .wc-block-checkout .wc-block-components-text-input.is-active input[type="tel"],
+html .wc-block-checkout .wc-block-components-text-input.is-active input[type="email"],
+html .wc-block-checkout .wc-block-components-text-input.is-active input[type="text"]:focus,
+html .wc-block-checkout .wc-block-components-text-input.is-active input[type="tel"]:focus,
+html .wc-block-checkout .wc-block-components-text-input.is-active input[type="email"]:focus {
+	padding-top: 29px;
+	padding-bottom: 6px;
+}
+html .wc-block-checkout .wc-block-components-text-input.is-active label,
+html .wc-block-checkout .wc-block-components-text-input input:-webkit-autofill + label {
+	top: 8px;
+}
+html .wc-block-checkout .wc-blocks-components-select .wc-blocks-components-select__select,
+html .wc-block-checkout .wc-blocks-components-select .wc-blocks-components-select__select:focus {
+	height: 62px;
+	padding-top: 29px;
+	padding-bottom: 6px;
+}
+html .wc-block-checkout .wc-blocks-components-select .wc-blocks-components-select__label {
+	top: 8px;
+}

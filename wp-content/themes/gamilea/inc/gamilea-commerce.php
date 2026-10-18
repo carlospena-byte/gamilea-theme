@@ -9,14 +9,6 @@ add_action('woocommerce_before_shop_loop', function() {
     foreach (tienda_categories() as $slug => $data) { echo '<option value="' . esc_attr($slug) . '" ' . selected(get_query_var('product_cat'),$slug,false) . '>' . esc_html($data[0]) . '</option>'; }
     echo '</select><button class="button" type="submit">Filtrar</button></form>';
 }, 15);
-add_action('woocommerce_single_product_summary', function() {
-    echo '<p class="gamilea-product-shipping">Envío incluido · Sin costos adicionales</p>';
-}, 11);
-add_action('woocommerce_single_product_summary', function() {
-    global $product;
-    echo '<div class="product-card gamilea-product-favorite" data-product-id="' . esc_attr($product->get_id()) . '"><div class="product-photo">' . $product->get_image() . '</div><h3><a href="' . esc_url($product->get_permalink()) . '">' . esc_html($product->get_name()) . '</a></h3><button class="favorite-toggle button" type="button" data-id="' . esc_attr($product->get_id()) . '" aria-pressed="false">Guardar en favoritos</button></div>';
-}, 31);
-add_filter('body_class',function($classes){ if(function_exists('is_account_page') && is_account_page() && !is_user_logged_in()) { $classes[]='gamilea-auth'; } return $classes; });
 add_action('wp', function() {
     if (!is_product()) { return; }
     $product = wc_get_product(get_queried_object_id());
@@ -34,8 +26,6 @@ add_filter('woocommerce_get_catalog_ordering_args', function($args,$orderby) {
     return $args;
 },10,2);
 
-remove_action('woocommerce_single_product_summary','woocommerce_template_single_title',5);
-add_action('woocommerce_single_product_summary',function(){ global $product; echo '<h1 class="product_title entry-title">' . gamilea_product_title($product) . '</h1>'; },5);
 add_filter('document_title_parts',function($parts){ $parts['site']='GA·MI·LEA'; if(is_front_page()){ $parts['title']='GA·MI·LEA'; } return $parts; });
 
 /** Use the FAQ page's full-width shell and inset content throughout commerce. */

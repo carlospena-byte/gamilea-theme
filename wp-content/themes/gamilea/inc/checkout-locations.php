@@ -40,6 +40,10 @@ add_action('init', function () {
     if ('SV' !== get_option('woocommerce_default_country')) {
         update_option('woocommerce_default_country', 'SV');
     }
+    // The courier needs a phone to deliver, so the checkout Blocks phone field can't stay "optional".
+    if ('required' !== get_option('woocommerce_checkout_phone_field')) {
+        update_option('woocommerce_checkout_phone_field', 'required');
+    }
 });
 
 /**
